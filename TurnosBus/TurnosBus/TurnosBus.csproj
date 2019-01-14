@@ -141,7 +141,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Plantillas\Plantilla.html" />
+    <Content Include="Plantillas\espe.png" />
+    <Content Include="Plantillas\PlantillaCliente.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
