@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TurnosBusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="plate" Type="varchar" MaxLength="50" />
+          <Property Name="capacity" Type="int" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="mail" Type="varchar" MaxLength="30" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="frecuency">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="hour" Type="time" Precision="7" />
+          <Property Name="fixed" Type="int" />
+          <Property Name="id_place" Type="int" />
+          <Property Name="id_bus" Type="int" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="turn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="hour" Type="time" Precision="7" />
+          <Property Name="id_place" Type="int" />
+          <Property Name="id_bus" Type="int" />
+          <Property Name="id_client" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_frecuency_bus">
+          <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
+          <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="frecuency">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_frecuency_place">
+          <End Role="place" Type="Self.place" Multiplicity="0..1" />
+          <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="frecuency">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_bus">
+          <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_bus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_place">
+          <End Role="place" Type="Self.place" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TurnosBusModelStoreContainer">
+          <EntitySet Name="bus" EntityType="Self.bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="frecuency" EntityType="Self.frecuency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="turn" EntityType="Self.turn" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_frecuency_bus" Association="Self.FK_frecuency_bus">
+            <End Role="bus" EntitySet="bus" />
+            <End Role="frecuency" EntitySet="frecuency" />
+          </AssociationSet>
+          <AssociationSet Name="FK_frecuency_place" Association="Self.FK_frecuency_place">
+            <End Role="place" EntitySet="place" />
+            <End Role="frecuency" EntitySet="frecuency" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_bus" Association="Self.FK_turn_bus">
+            <End Role="bus" EntitySet="bus" />
+            <End Role="turn" EntitySet="turn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_client" Association="Self.FK_turn_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="turn" EntitySet="turn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_place" Association="Self.FK_turn_place">
+            <End Role="place" EntitySet="place" />
+            <End Role="turn" EntitySet="turn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TurnosBusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="plate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="capacity" Type="Int32" />
+          <NavigationProperty Name="frecuencies" Relationship="Self.FK_frecuency_bus" FromRole="bus" ToRole="frecuency" />
+          <NavigationProperty Name="turns" Relationship="Self.FK_turn_bus" FromRole="bus" ToRole="turn" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="turns" Relationship="Self.FK_turn_client" FromRole="client" ToRole="turn" />
+        </EntityType>
+        <EntityType Name="frecuency">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="hour" Type="Time" Precision="7" />
+          <Property Name="fixed" Type="Int32" />
+          <Property Name="id_place" Type="Int32" />
+          <Property Name="id_bus" Type="Int32" />
+          <NavigationProperty Name="bus" Relationship="Self.FK_frecuency_bus" FromRole="frecuency" ToRole="bus" />
+          <NavigationProperty Name="place" Relationship="Self.FK_frecuency_place" FromRole="frecuency" ToRole="place" />
+        </EntityType>
+        <EntityType Name="place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="frecuencies" Relationship="Self.FK_frecuency_place" FromRole="place" ToRole="frecuency" />
+          <NavigationProperty Name="turns" Relationship="Self.FK_turn_place" FromRole="place" ToRole="turn" />
+        </EntityType>
+        <EntityType Name="turn">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="hour" Type="Time" Precision="7" />
+          <Property Name="id_place" Type="Int32" />
+          <Property Name="id_bus" Type="Int32" />
+          <Property Name="id_client" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bus" Relationship="Self.FK_turn_bus" FromRole="turn" ToRole="bus" />
+          <NavigationProperty Name="client" Relationship="Self.FK_turn_client" FromRole="turn" ToRole="client" />
+          <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
+        </EntityType>
+        <Association Name="FK_frecuency_bus">
+          <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
+          <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="frecuency">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_bus">
+          <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_bus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_client">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_frecuency_place">
+          <End Role="place" Type="Self.place" Multiplicity="0..1" />
+          <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="frecuency">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_turn_place">
+          <End Role="place" Type="Self.place" Multiplicity="0..1" />
+          <End Role="turn" Type="Self.turn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="turn">
+              <PropertyRef Name="id_place" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TurnosBusEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="buses" EntityType="Self.bus" />
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="frecuencies" EntityType="Self.frecuency" />
+          <EntitySet Name="places" EntityType="Self.place" />
+          <EntitySet Name="turns" EntityType="Self.turn" />
+          <AssociationSet Name="FK_frecuency_bus" Association="Self.FK_frecuency_bus">
+            <End Role="bus" EntitySet="buses" />
+            <End Role="frecuency" EntitySet="frecuencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_bus" Association="Self.FK_turn_bus">
+            <End Role="bus" EntitySet="buses" />
+            <End Role="turn" EntitySet="turns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_client" Association="Self.FK_turn_client">
+            <End Role="client" EntitySet="clients" />
+            <End Role="turn" EntitySet="turns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_frecuency_place" Association="Self.FK_frecuency_place">
+            <End Role="place" EntitySet="places" />
+            <End Role="frecuency" EntitySet="frecuencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_turn_place" Association="Self.FK_turn_place">
+            <End Role="place" EntitySet="places" />
+            <End Role="turn" EntitySet="turns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TurnosBusModelStoreContainer" CdmEntityContainer="TurnosBusEntities">
+          <EntitySetMapping Name="buses">
+            <EntityTypeMapping TypeName="TurnosBusModel.bus">
+              <MappingFragment StoreEntitySet="bus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="plate" ColumnName="plate" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="TurnosBusModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="frecuencies">
+            <EntityTypeMapping TypeName="TurnosBusModel.frecuency">
+              <MappingFragment StoreEntitySet="frecuency">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="hour" ColumnName="hour" />
+                <ScalarProperty Name="fixed" ColumnName="fixed" />
+                <ScalarProperty Name="id_place" ColumnName="id_place" />
+                <ScalarProperty Name="id_bus" ColumnName="id_bus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="places">
+            <EntityTypeMapping TypeName="TurnosBusModel.place">
+              <MappingFragment StoreEntitySet="place">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="turns">
+            <EntityTypeMapping TypeName="TurnosBusModel.turn">
+              <MappingFragment StoreEntitySet="turn">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="hour" ColumnName="hour" />
+                <ScalarProperty Name="id_place" ColumnName="id_place" />
+                <ScalarProperty Name="id_bus" ColumnName="id_bus" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
