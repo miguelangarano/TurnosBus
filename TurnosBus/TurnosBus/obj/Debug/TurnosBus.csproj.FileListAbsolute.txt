@@ -116,3 +116,7 @@ D:\Proyectos\Sistema de Buses\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.
 D:\Proyectos\Sistema de Buses\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CopyComplete
 D:\Proyectos\Sistema de Buses\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.dll
 D:\Proyectos\Sistema de Buses\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.pdb
+C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.dll
+C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.SqlServer.dll
+C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.xml
+C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.SqlServer.xml

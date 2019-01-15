@@ -27,8 +27,9 @@ namespace TurnosBus
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/plantilla-style.css",
                       "~/Content/horario-style.css",
-                      "~/Content/plantilla-style.css"));
+                      "~/Content/cancelar-style.css"));
         }
     }
 }

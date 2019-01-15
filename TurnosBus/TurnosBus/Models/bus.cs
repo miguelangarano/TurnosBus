@@ -17,7 +17,7 @@ namespace TurnosBus.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public bus()
         {
-            this.frecuencies = new HashSet<frecuency>();
+            this.frequencies = new HashSet<frequency>();
             this.turns = new HashSet<turn>();
         }
     
@@ -26,7 +26,7 @@ namespace TurnosBus.Models
         public Nullable<int> capacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<frecuency> frecuencies { get; set; }
+        public virtual ICollection<frequency> frequencies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<turn> turns { get; set; }
     }

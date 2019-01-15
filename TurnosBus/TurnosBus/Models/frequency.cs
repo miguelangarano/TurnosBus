@@ -12,12 +12,13 @@ namespace TurnosBus.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class frecuency
+    public partial class frequency
     {
         public int id { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<System.TimeSpan> hour { get; set; }
         public Nullable<int> @fixed { get; set; }
+        public Nullable<int> available { get; set; }
         public Nullable<int> id_place { get; set; }
         public Nullable<int> id_bus { get; set; }
     
