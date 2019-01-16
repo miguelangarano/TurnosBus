@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CancelarController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +180,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cancelar-style.css" />
     <Content Include="Content\img\avatar.png" />
+    <Content Include="Content\StyleRegistro.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
@@ -238,6 +240,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Cancelar\Index.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
