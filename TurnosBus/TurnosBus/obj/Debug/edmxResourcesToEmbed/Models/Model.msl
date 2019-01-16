@@ -20,13 +20,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="frecuencies">
-      <EntityTypeMapping TypeName="TurnosBusModel.frecuency">
-        <MappingFragment StoreEntitySet="frecuency">
+    <EntitySetMapping Name="frequencies">
+      <EntityTypeMapping TypeName="TurnosBusModel.frequency">
+        <MappingFragment StoreEntitySet="frequency">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="hour" ColumnName="hour" />
           <ScalarProperty Name="fixed" ColumnName="fixed" />
+          <ScalarProperty Name="available" ColumnName="available" />
           <ScalarProperty Name="id_place" ColumnName="id_place" />
           <ScalarProperty Name="id_bus" ColumnName="id_bus" />
         </MappingFragment>
