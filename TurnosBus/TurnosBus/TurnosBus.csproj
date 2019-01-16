@@ -178,6 +178,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cancelar-style.css" />
+    <Content Include="Content\img\avatar.png" />
+    <Content Include="Content\Style.css" />
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
     <Content Include="Content\plantilla-style.css" />
@@ -197,6 +199,7 @@
     </Content>
     <Content Include="Plantillas\espe.png" />
     <Content Include="Plantillas\PlantillaCliente.html" />
+    <Content Include="Plantillas\PlantillaLogin.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model.edmx">
