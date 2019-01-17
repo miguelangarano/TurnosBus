@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Cancelar";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    div#options h3#option4 {
+        opacity: 1;
+    }
+
+    #datetimecontainer{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    #tablecontainer{
+        padding-left: 10vw;
+        padding-right: 10vw;
+        padding-top: 10vh;
+    }
+
+
+    td, th {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #7BC17A;
+    }
+
+    .cancelarbutton {
+        width: 10vw;
+        height: 5vh;
+        right: 5vw;
+        top: 7vh;
+        background: #0C430B;
+        border-radius: 30px;
+        font-size: 1em;
+        color: #FFFFFF;
+    }
+
+</style>
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Cancelar Turno</h1>
+    </div>
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Verificar Disponibilidad</h3>
+        <h3 id="option4">Cancelar Turno</h3>
+    </div>
+    <div id="content">
+        <div id="datetimecontainer">
+            <h3 id="datetext">Fecha: XX/XX/XXXX</h3>
+            <h3 id="hourtext">Hora: XX:XX</h3>
+        </div>
+        <div id="tablecontainer">
+            <table style="width:100%">
+                <tr>
+                    <th>Lugar</th>
+                    <th>Fecha</th>
+                    <th>Horario</th>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Smith</td>
+                    <td>50</td>
+                    <td><button class="cancelarbutton">Cancelar</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const url = "/Cancelar/GetTurn";
+    const date = "05/01/2018";
+    const hour = "09:30";
+    const id_cliente = "S00350816";
+    $.post(url, { date: date, hour: hour, id_cliente: id_cliente }, function (data) {
+        console.log(data);
+    });
+</script>
