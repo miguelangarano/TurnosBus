@@ -10,6 +10,13 @@
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 70px 30px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    -moz-box-shadow: rgb(150,150,150) 5px 5px 10px;
+    -webkit-box-shadow: rgb(150,150,150) 5px 5px 10px;
+    box-shadow: rgb(150,150,150) 5px 5px 10px;
+    background: linear-gradient(top, #FFFFFF 50%, #006699 90%);
 }
 
 .avatar {
@@ -87,7 +94,7 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: 1fr 4fr;
-    background-color: #848282;
+    background-color: #b4b4b4;
 }
 
 #appbar {
