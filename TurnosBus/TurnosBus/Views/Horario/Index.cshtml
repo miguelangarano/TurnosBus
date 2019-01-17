@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Horario";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
     div#options h3#option1{
         opacity:1;
@@ -27,10 +26,9 @@
     <div id="content">
         <table id="table-horario">
             <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
+                <th>Placa</th>
                 <th>Capacidad</th>
-                <th>Lugar</th>
+                <th>Disponibilidad esta semana</th>
             </tr>
             <tr>
                 <td>Peter</td>
@@ -55,11 +53,3 @@
         </table>
     </div>
 </div>
-
-<script>
-    $.post("/Horario/getHorarioTable", {}, function (data) {
-        //console.log(window.location.hostname + url);
-        console.log(data);
-
-    });
-</script>

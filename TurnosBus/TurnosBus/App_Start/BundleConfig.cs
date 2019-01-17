@@ -28,9 +28,7 @@ namespace TurnosBus
                       "~/Content/bootstrap.css",
                       "~/Content/plantilla-style.css",
                       "~/Content/horario-style.css",
-                      "~/Content/cancelar-style.css",
-                      "~/Content/reloj.css"
-                      ));
+                      "~/Content/cancelar-style.css"));
         }
     }
 }
