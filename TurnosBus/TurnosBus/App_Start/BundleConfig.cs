@@ -20,16 +20,11 @@ namespace TurnosBus
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/plantilla-script.js",
-                      "~/Scripts/horario-script.js"
-                      ));
+                      "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/plantilla-style.css",
-                      "~/Content/horario-style.css",
-                      "~/Content/cancelar-style.css"));
+                      "~/Content/site.css"));
         }
     }
 }
