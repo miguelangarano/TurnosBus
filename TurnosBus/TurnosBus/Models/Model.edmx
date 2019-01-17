@@ -22,14 +22,22 @@
           <Property Name="mail" Type="varchar" MaxLength="30" />
           <Property Name="password" Type="varchar" MaxLength="20" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="code">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_code" Type="int" />
+        </EntityType>
         <EntityType Name="frequency">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="date" Type="date" />
+          <Property Name="day" Type="varchar" MaxLength="50" />
           <Property Name="hour" Type="time" Precision="7" />
-          <Property Name="fixed" Type="int" />
           <Property Name="available" Type="int" />
           <Property Name="id_place" Type="int" />
           <Property Name="id_bus" Type="int" />
@@ -53,6 +61,18 @@
           <Property Name="id_bus" Type="int" />
           <Property Name="id_client" Type="varchar" MaxLength="15" />
         </EntityType>
+        <Association Name="FK_code_turn">
+          <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
+          <End Role="code" Type="Self.code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="turn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="code">
+              <PropertyRef Name="id_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_frequency_bus">
           <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
           <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
@@ -119,6 +139,16 @@
           <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="turn" EntityType="Self.turn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="code" EntityType="Self.code" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [code].[id] AS [id], 
+    [code].[id_code] AS [id_code]
+    FROM [dbo].[code] AS [code]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
+            <End Role="turn" EntitySet="turn" />
+            <End Role="code" EntitySet="code" />
+          </AssociationSet>
           <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
             <End Role="bus" EntitySet="bus" />
             <End Role="frequency" EntitySet="frequency" />
@@ -170,9 +200,8 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="hour" Type="Time" Precision="7" />
-          <Property Name="fixed" Type="Int32" />
           <Property Name="available" Type="Int32" />
           <Property Name="id_place" Type="Int32" />
           <Property Name="id_bus" Type="Int32" />
@@ -202,6 +231,15 @@
           <NavigationProperty Name="bus" Relationship="Self.FK_turn_bus" FromRole="turn" ToRole="bus" />
           <NavigationProperty Name="client" Relationship="Self.FK_turn_client" FromRole="turn" ToRole="client" />
           <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
+          <NavigationProperty Name="codes" Relationship="Self.FK_code_turn" FromRole="turn" ToRole="code" />
+        </EntityType>
+        <EntityType Name="code">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_code" Type="Int32" />
+          <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
         </EntityType>
         <Association Name="FK_frequency_bus">
           <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
@@ -263,12 +301,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_code_turn">
+          <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
+          <End Role="code" Type="Self.code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="turn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="code">
+              <PropertyRef Name="id_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TurnosBusEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="buses" EntityType="Self.bus" />
           <EntitySet Name="clients" EntityType="Self.client" />
           <EntitySet Name="frequencies" EntityType="Self.frequency" />
           <EntitySet Name="places" EntityType="Self.place" />
           <EntitySet Name="turns" EntityType="Self.turn" />
+          <EntitySet Name="codes" EntityType="Self.code" />
           <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
             <End Role="bus" EntitySet="buses" />
             <End Role="frequency" EntitySet="frequencies" />
@@ -288,6 +339,10 @@
           <AssociationSet Name="FK_turn_place" Association="Self.FK_turn_place">
             <End Role="place" EntitySet="places" />
             <End Role="turn" EntitySet="turns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
+            <End Role="turn" EntitySet="turns" />
+            <End Role="code" EntitySet="codes" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -319,9 +374,8 @@
             <EntityTypeMapping TypeName="TurnosBusModel.frequency">
               <MappingFragment StoreEntitySet="frequency">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="day" ColumnName="day" />
                 <ScalarProperty Name="hour" ColumnName="hour" />
-                <ScalarProperty Name="fixed" ColumnName="fixed" />
                 <ScalarProperty Name="available" ColumnName="available" />
                 <ScalarProperty Name="id_place" ColumnName="id_place" />
                 <ScalarProperty Name="id_bus" ColumnName="id_bus" />
@@ -346,6 +400,14 @@
                 <ScalarProperty Name="id_place" ColumnName="id_place" />
                 <ScalarProperty Name="id_bus" ColumnName="id_bus" />
                 <ScalarProperty Name="id_client" ColumnName="id_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codes">
+            <EntityTypeMapping TypeName="TurnosBusModel.code">
+              <MappingFragment StoreEntitySet="code">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_code" ColumnName="id_code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
