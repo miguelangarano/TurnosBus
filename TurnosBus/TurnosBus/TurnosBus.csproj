@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CancelarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,6 +182,8 @@
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
     <Content Include="Content\plantilla-style.css" />
+    <Content Include="Content\reloj.css" />
+    <Content Include="Content\Reserva-style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -235,6 +238,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Cancelar\Index.cshtml" />
+    <Content Include="Views\Reserva\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

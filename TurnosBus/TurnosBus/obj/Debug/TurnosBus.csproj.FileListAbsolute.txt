@@ -78,3 +78,7 @@ D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\Turno
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CopyComplete
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.dll
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.pdb
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.dll
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.SqlServer.dll
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.xml
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\EntityFramework.SqlServer.xml

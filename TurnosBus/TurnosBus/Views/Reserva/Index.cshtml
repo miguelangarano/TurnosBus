@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Reserva";
+}
+<style>
+    div#options h3#option2 {
+        opacity: 1;
+    }
+</style>
+@* =============================CABEZERA=================================================== *@
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Reserva un Turno</h1>
+    </div>
+    @* =============================NAVEGACION=================================================== *@
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Verificar Disponibilidad</h3>
+        <h3 id="option4">Cancelar Turno</h3>
+    </div>
+    @* =============================CONTENIDO=================================================== *@
+
+  
+    <div id="content">
+        @* =============================FECHA Y HORA=================================================== *@
+        <center>
+            <div class="">
+                <div class="widget">
+                    <div class="fecha">
+                        <p id="diaSemana" class="diaSemana">Martes</p>
+                        <p id="dia" class="dia">27</p>
+                        <p>de </p>
+                        <p id="mes" class="mes">Octubre</p>
+                        <p>del </p>
+                        <p id="year" class="year">2015</p>
+                    </div>
+
+                    <div class="reloj">
+                        <p id="horas" class="horas">11</p>
+                        <p>:</p>
+                        <p id="minutos" class="minutos">48</p>
+                        <p>:</p>
+                        <div class="caja-segundos">
+                            <p id="ampm" class="ampm">AM</p>
+                            <p id="segundos" class="segundos">12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+            <div class="col-lg-5">
+                <select id="user_time_zone" class="form-control" size="0">
+                    <option value="">HORARIO</option>
+                    <option value="HORARIO1">HORARIO 1</option>
+                    <option value="HORARIO2">HORARIO 2</option>
+                    <option value="HORARIO3">HORARIO 3</option>
+                    <option value="HORARIO4">HORARIO 4</option>
+                </select>
+            </div>
+            <div class="col-lg-5">
+                <select id="user_time_zone" class="form-control" size="0">
+                    <option value="">LUGAR DE SALIDA</option>
+                    <option value="SALIDA1">SALIDA 1</option>
+                    <option value="SALIDA2">SALIDA 2</option>
+                    <option value="SALIDA3">SALIDA 3</option>
+                    <option value="SALIDA4">SALIDA 4</option>
+
+                </select>
+            </div>
+        
+         <br />
+         <br />
+         <table id="table-horario">
+            <tr>
+                <th>Placa</th>
+                <th>Capacidad</th>
+                <th></th>
+            </tr>
+            <div>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>40</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>50</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>60</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>70</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+</table>
+
+    <br />
+    <br />
+    <button type="submit" class="btn btn-success btn-lg float-right" id="btnDescargarCodigo">DESCARGAR CODIGO</button>
+
+    <!--/container-->
+</div>
+</div>
+@* ===============================JAVASCRIP DEL RELOG=========================================== *@
+<script>
+    (function () {
+        var actualizarHora = function () {
+            // Obtenemos la fecha actual, incluyendo las horas, minutos, segundos, dia de la semana, dia del mes, mes y año;
+            var fecha = new Date(),
+                horas = fecha.getHours(),
+                ampm,
+                minutos = fecha.getMinutes(),
+                segundos = fecha.getSeconds(),
+                diaSemana = fecha.getDay(),
+                dia = fecha.getDate(),
+                mes = fecha.getMonth(),
+                year = fecha.getFullYear();
+
+            // Accedemos a los elementos del DOM para agregar mas adelante sus correspondientes valores
+            var pHoras = document.getElementById('horas'),
+                pAMPM = document.getElementById('ampm'),
+                pMinutos = document.getElementById('minutos'),
+                pSegundos = document.getElementById('segundos'),
+                pDiaSemana = document.getElementById('diaSemana'),
+                pDia = document.getElementById('dia'),
+                pMes = document.getElementById('mes'),
+                pYear = document.getElementById('year');
+
+
+            // Obtenemos el dia se la semana y lo mostramos
+            var semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+            pDiaSemana.textContent = semana[diaSemana];
+
+            // Obtenemos el dia del mes
+            pDia.textContent = dia;
+
+            // Obtenemos el Mes y año y lo mostramos
+            var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            pMes.textContent = meses[mes];
+            pYear.textContent = year;
+
+            // Cambiamos las hora de 24 a 12 horas y establecemos si es AM o PM
+
+            if (horas >= 12) {
+                horas = horas - 12;
+                ampm = 'PM';
+            } else {
+                ampm = 'AM';
+            }
+
+            // Detectamos cuando sean las 0 AM y transformamos a 12 AM
+            if (horas == 0) {
+                horas = 12;
+            }
+
+            // Si queremos mostrar un cero antes de las horas ejecutamos este condicional
+            // if (horas < 10){horas = '0' + horas;}
+            pHoras.textContent = horas;
+            pAMPM.textContent = ampm;
+
+            // Minutos y Segundos
+            if (minutos < 10) { minutos = "0" + minutos; }
+            if (segundos < 10) { segundos = "0" + segundos; }
+
+            pMinutos.textContent = minutos;
+            pSegundos.textContent = segundos;
+        };
+
+        actualizarHora();
+        var intervalo = setInterval(actualizarHora, 1000);
+    }())
+</script>
