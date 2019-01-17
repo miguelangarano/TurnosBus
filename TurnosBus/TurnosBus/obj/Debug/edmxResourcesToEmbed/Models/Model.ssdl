@@ -17,7 +17,7 @@
     <Property Name="mail" Type="varchar" MaxLength="30" />
     <Property Name="password" Type="varchar" MaxLength="20" />
   </EntityType>
-  <EntityType Name="frecuency">
+  <EntityType Name="frequency">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -25,6 +25,7 @@
     <Property Name="date" Type="date" />
     <Property Name="hour" Type="time" Precision="7" />
     <Property Name="fixed" Type="int" />
+    <Property Name="available" Type="int" />
     <Property Name="id_place" Type="int" />
     <Property Name="id_bus" Type="int" />
   </EntityType>
@@ -47,26 +48,26 @@
     <Property Name="id_bus" Type="int" />
     <Property Name="id_client" Type="varchar" MaxLength="15" />
   </EntityType>
-  <Association Name="FK_frecuency_bus">
+  <Association Name="FK_frequency_bus">
     <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
-    <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+    <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="bus">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="frecuency">
-        <PropertyRef Name="id_place" />
+      <Dependent Role="frequency">
+        <PropertyRef Name="id_bus" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_frecuency_place">
+  <Association Name="FK_frequency_place">
     <End Role="place" Type="Self.place" Multiplicity="0..1" />
-    <End Role="frecuency" Type="Self.frecuency" Multiplicity="*" />
+    <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="place">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="frecuency">
+      <Dependent Role="frequency">
         <PropertyRef Name="id_place" />
       </Dependent>
     </ReferentialConstraint>
@@ -110,16 +111,16 @@
   <EntityContainer Name="TurnosBusModelStoreContainer">
     <EntitySet Name="bus" EntityType="Self.bus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="frecuency" EntityType="Self.frecuency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="turn" EntityType="Self.turn" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_frecuency_bus" Association="Self.FK_frecuency_bus">
+    <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
       <End Role="bus" EntitySet="bus" />
-      <End Role="frecuency" EntitySet="frecuency" />
+      <End Role="frequency" EntitySet="frequency" />
     </AssociationSet>
-    <AssociationSet Name="FK_frecuency_place" Association="Self.FK_frecuency_place">
+    <AssociationSet Name="FK_frequency_place" Association="Self.FK_frequency_place">
       <End Role="place" EntitySet="place" />
-      <End Role="frecuency" EntitySet="frecuency" />
+      <End Role="frequency" EntitySet="frequency" />
     </AssociationSet>
     <AssociationSet Name="FK_turn_bus" Association="Self.FK_turn_bus">
       <End Role="bus" EntitySet="bus" />
