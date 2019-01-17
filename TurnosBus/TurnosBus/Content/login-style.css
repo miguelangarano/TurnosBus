@@ -7,6 +7,26 @@ body {
     font-family: sans-serif;
 }
 
+#appbar {
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2vh;
+    padding-left: 3vw;
+    padding-right: 2vw;
+    padding-bottom: 2vh;
+    background: #7BC17A;
+}
+
+#container {
+    grid-row: 2 / span 3;
+    background: #DCDCDC;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: 1fr 6fr;
+}
+
+
 .loginbox {
     width: 320px;
     height: 420px;

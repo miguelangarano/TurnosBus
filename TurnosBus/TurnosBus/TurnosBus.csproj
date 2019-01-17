@@ -179,7 +179,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cancelar-style.css" />
     <Content Include="Content\img\avatar.png" />
-    <Content Include="Content\Style.css" />
+    <Content Include="Content\login-style.css" />
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
     <Content Include="Content\plantilla-style.css" />
