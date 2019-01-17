@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="03d08383d2d148a192d56110c0840015" Name="Diagram1" ZoomLevel="95">
+      <Diagram DiagramId="ab07b6711ca44904b9d707a7f64a9bc9" Name="Diagram1">
         <EntityTypeShape EntityType="TurnosBusModel.bus" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TurnosBusModel.client" Width="1.5" PointX="8.375" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TurnosBusModel.frequency" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="TurnosBusModel.place" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TurnosBusModel.turn" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TurnosBusModel.client" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TurnosBusModel.frequency" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TurnosBusModel.place" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TurnosBusModel.turn" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TurnosBusModel.code" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="TurnosBusModel.FK_frequency_bus" ManuallyRouted="false" />
         <AssociationConnector Association="TurnosBusModel.FK_turn_bus" ManuallyRouted="false" />
         <AssociationConnector Association="TurnosBusModel.FK_turn_client" ManuallyRouted="false" />
         <AssociationConnector Association="TurnosBusModel.FK_frequency_place" ManuallyRouted="false" />
         <AssociationConnector Association="TurnosBusModel.FK_turn_place" ManuallyRouted="false" />
+        <AssociationConnector Association="TurnosBusModel.FK_code_turn" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -148,6 +148,9 @@
     <Compile Include="Models\client.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\code.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\frequency.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
