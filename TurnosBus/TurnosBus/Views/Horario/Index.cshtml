@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Horario";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    div#options h3#option1{
+        opacity:1;
+    }
+</style>
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Horarios y Unidades</h1>
+    </div>
+
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Verificar Disponibilidad</h3>
+        <h3 id="option4">Cancelar Turno</h3>
+    </div>
+
+    <div id="content">
+        <table id="table-horario">
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Capacidad</th>
+                <th>Lugar</th>
+            </tr>
+            <tr>
+                <td>Peter</td>
+                <td>Griffin</td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Lois</td>
+                <td>Griffin</td>
+                <td>$150</td>
+            </tr>
+            <tr>
+                <td>Joe</td>
+                <td>Swanson</td>
+                <td>$300</td>
+            </tr>
+            <tr>
+                <td>Cleveland</td>
+                <td>Brown</td>
+                <td>$250</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    $.post("/Horario/getHorarioTable", {}, function (data) {
+        //console.log(window.location.hostname + url);
+        console.log(data);
+
+    });
+</script>
