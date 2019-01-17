@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Reserva";
+}
+<style>
+    div#options h3#option3 {
+        opacity: 1;
+    }
+</style>
+@* =============================CABEZERA=================================================== *@
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Registrar Bus</h1>
+    </div>
+    @* =============================NAVEGACION=================================================== *@
+    <div id="options">
+        <h3 id="option1" href="#">Manejar Disponibilidad</h3>
+        <h3 id="option2" href="#">Ingresar Frecuencia</h3>
+        <h3 id="option3" href="#">Registrar Bus</h3>
+        <h3 id="option4" href="#">Registrar Lugar</h3>
+        <h3 id="option5" href="#">Reportes</h3>
+
+    </div>
+    @* =============================CONTENIDO=================================================== *@
+    <div id="content">
+        <form>
+            <div class="form-group-lg">
+                <label >Placa</label>
+                <input type="text" class="form-control" id="txtPlaca" aria-describedby="emailHelp" placeholder="Ingrese Placa">
+            </div>
+            <div class="form-group-lg">
+                <label>Capacidad</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Capacidad">
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success btn-lg float-right" id="btnRegistrar">Registrar</button>
+            
+        </form>
+        
+        <!--/container-->
+    </div>
+</div>
