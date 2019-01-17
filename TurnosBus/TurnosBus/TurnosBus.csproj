@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CancelarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,6 +239,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Cancelar\Index.cshtml" />
+    <Content Include="Views\Reserva\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
