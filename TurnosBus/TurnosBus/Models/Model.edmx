@@ -21,15 +21,16 @@
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="mail" Type="varchar" MaxLength="30" />
           <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="banned" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="code">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_code" Type="int" />
+          <Property Name="id_turn" Type="int" />
+          <Property Name="turncode" Type="varchar" MaxLength="50" />
+          <Property Name="assisted" Type="bit" />
         </EntityType>
         <EntityType Name="frequency">
           <Key>
@@ -38,7 +39,7 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="day" Type="varchar" MaxLength="50" />
           <Property Name="hour" Type="time" Precision="7" />
-          <Property Name="available" Type="int" />
+          <Property Name="available" Type="bit" />
           <Property Name="id_place" Type="int" />
           <Property Name="id_bus" Type="int" />
         </EntityType>
@@ -57,6 +58,7 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <Property Name="code" Type="varchar" MaxLength="50" />
           <Property Name="date" Type="date" />
           <Property Name="hour" Type="time" Precision="7" />
+          <Property Name="last" Type="bit" />
           <Property Name="id_place" Type="int" />
           <Property Name="id_bus" Type="int" />
           <Property Name="id_client" Type="varchar" MaxLength="15" />
@@ -69,7 +71,7 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="code">
-              <PropertyRef Name="id_code" />
+              <PropertyRef Name="id_turn" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -136,15 +138,10 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
         <EntityContainer Name="TurnosBusModelStoreContainer">
           <EntitySet Name="bus" EntityType="Self.bus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="code" EntityType="Self.code" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="turn" EntityType="Self.turn" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="code" EntityType="Self.code" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [code].[id] AS [id], 
-    [code].[id_code] AS [id_code]
-    FROM [dbo].[code] AS [code]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
             <End Role="turn" EntitySet="turn" />
             <End Role="code" EntitySet="code" />
@@ -193,7 +190,18 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="mail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="banned" Type="DateTime" Precision="0" />
           <NavigationProperty Name="turns" Relationship="Self.FK_turn_client" FromRole="client" ToRole="turn" />
+        </EntityType>
+        <EntityType Name="code">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_turn" Type="Int32" />
+          <Property Name="turncode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="assisted" Type="Boolean" />
+          <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
         </EntityType>
         <EntityType Name="frequency">
           <Key>
@@ -202,7 +210,7 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="hour" Type="Time" Precision="7" />
-          <Property Name="available" Type="Int32" />
+          <Property Name="available" Type="Boolean" />
           <Property Name="id_place" Type="Int32" />
           <Property Name="id_bus" Type="Int32" />
           <NavigationProperty Name="bus" Relationship="Self.FK_frequency_bus" FromRole="frequency" ToRole="bus" />
@@ -225,21 +233,14 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="hour" Type="Time" Precision="7" />
+          <Property Name="last" Type="Boolean" />
           <Property Name="id_place" Type="Int32" />
           <Property Name="id_bus" Type="Int32" />
           <Property Name="id_client" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="bus" Relationship="Self.FK_turn_bus" FromRole="turn" ToRole="bus" />
           <NavigationProperty Name="client" Relationship="Self.FK_turn_client" FromRole="turn" ToRole="client" />
-          <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
           <NavigationProperty Name="codes" Relationship="Self.FK_code_turn" FromRole="turn" ToRole="code" />
-        </EntityType>
-        <EntityType Name="code">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_code" Type="Int32" />
-          <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
+          <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
         </EntityType>
         <Association Name="FK_frequency_bus">
           <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
@@ -277,6 +278,18 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_code_turn">
+          <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
+          <End Role="code" Type="Self.code" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="turn">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="code">
+              <PropertyRef Name="id_turn" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_frequency_place">
           <End Role="place" Type="Self.place" Multiplicity="0..1" />
           <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
@@ -301,25 +314,13 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_code_turn">
-          <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
-          <End Role="code" Type="Self.code" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="turn">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="code">
-              <PropertyRef Name="id_code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="TurnosBusEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="buses" EntityType="Self.bus" />
           <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="codes" EntityType="Self.code" />
           <EntitySet Name="frequencies" EntityType="Self.frequency" />
           <EntitySet Name="places" EntityType="Self.place" />
           <EntitySet Name="turns" EntityType="Self.turn" />
-          <EntitySet Name="codes" EntityType="Self.code" />
           <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
             <End Role="bus" EntitySet="buses" />
             <End Role="frequency" EntitySet="frequencies" />
@@ -332,6 +333,10 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
             <End Role="client" EntitySet="clients" />
             <End Role="turn" EntitySet="turns" />
           </AssociationSet>
+          <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
+            <End Role="turn" EntitySet="turns" />
+            <End Role="code" EntitySet="codes" />
+          </AssociationSet>
           <AssociationSet Name="FK_frequency_place" Association="Self.FK_frequency_place">
             <End Role="place" EntitySet="places" />
             <End Role="frequency" EntitySet="frequencies" />
@@ -339,10 +344,6 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
           <AssociationSet Name="FK_turn_place" Association="Self.FK_turn_place">
             <End Role="place" EntitySet="places" />
             <End Role="turn" EntitySet="turns" />
-          </AssociationSet>
-          <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
-            <End Role="turn" EntitySet="turns" />
-            <End Role="code" EntitySet="codes" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -367,6 +368,17 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="mail" ColumnName="mail" />
                 <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="banned" ColumnName="banned" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codes">
+            <EntityTypeMapping TypeName="TurnosBusModel.code">
+              <MappingFragment StoreEntitySet="code">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_turn" ColumnName="id_turn" />
+                <ScalarProperty Name="turncode" ColumnName="turncode" />
+                <ScalarProperty Name="assisted" ColumnName="assisted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -397,17 +409,10 @@ warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key de
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="hour" ColumnName="hour" />
+                <ScalarProperty Name="last" ColumnName="last" />
                 <ScalarProperty Name="id_place" ColumnName="id_place" />
                 <ScalarProperty Name="id_bus" ColumnName="id_bus" />
                 <ScalarProperty Name="id_client" ColumnName="id_client" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="codes">
-            <EntityTypeMapping TypeName="TurnosBusModel.code">
-              <MappingFragment StoreEntitySet="code">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_code" ColumnName="id_code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

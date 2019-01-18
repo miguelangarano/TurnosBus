@@ -17,14 +17,22 @@
     <Property Name="mail" Type="varchar" MaxLength="30" />
     <Property Name="password" Type="varchar" MaxLength="20" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TurnosBus.dbo.code' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="code">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_code" Type="int" />
+  </EntityType>
   <EntityType Name="frequency">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="date" Type="date" />
+    <Property Name="day" Type="varchar" MaxLength="50" />
     <Property Name="hour" Type="time" Precision="7" />
-    <Property Name="fixed" Type="int" />
     <Property Name="available" Type="int" />
     <Property Name="id_place" Type="int" />
     <Property Name="id_bus" Type="int" />
@@ -48,6 +56,18 @@
     <Property Name="id_bus" Type="int" />
     <Property Name="id_client" Type="varchar" MaxLength="15" />
   </EntityType>
+  <Association Name="FK_code_turn">
+    <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
+    <End Role="code" Type="Self.code" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="turn">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="code">
+        <PropertyRef Name="id_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_frequency_bus">
     <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
     <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
@@ -114,6 +134,16 @@
     <EntitySet Name="frequency" EntityType="Self.frequency" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="place" EntityType="Self.place" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="turn" EntityType="Self.turn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="code" EntityType="Self.code" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [code].[id] AS [id], 
+    [code].[id_code] AS [id_code]
+    FROM [dbo].[code] AS [code]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
+      <End Role="turn" EntitySet="turn" />
+      <End Role="code" EntitySet="code" />
+    </AssociationSet>
     <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
       <End Role="bus" EntitySet="bus" />
       <End Role="frequency" EntitySet="frequency" />
