@@ -24,6 +24,7 @@ namespace TurnosBus.Models
         public string code { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<System.TimeSpan> hour { get; set; }
+        public Nullable<bool> last { get; set; }
         public Nullable<int> id_place { get; set; }
         public Nullable<int> id_bus { get; set; }
         public string id_client { get; set; }

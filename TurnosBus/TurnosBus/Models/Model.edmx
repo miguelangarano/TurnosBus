@@ -30,6 +30,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_turn" Type="int" />
           <Property Name="turncode" Type="varchar" MaxLength="50" />
+          <Property Name="assisted" Type="bit" />
         </EntityType>
         <EntityType Name="frequency">
           <Key>
@@ -38,7 +39,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="day" Type="varchar" MaxLength="50" />
           <Property Name="hour" Type="time" Precision="7" />
-          <Property Name="available" Type="int" />
+          <Property Name="available" Type="bit" />
           <Property Name="id_place" Type="int" />
           <Property Name="id_bus" Type="int" />
         </EntityType>
@@ -57,6 +58,7 @@
           <Property Name="code" Type="varchar" MaxLength="50" />
           <Property Name="date" Type="date" />
           <Property Name="hour" Type="time" Precision="7" />
+          <Property Name="last" Type="bit" />
           <Property Name="id_place" Type="int" />
           <Property Name="id_bus" Type="int" />
           <Property Name="id_client" Type="varchar" MaxLength="15" />
@@ -198,6 +200,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_turn" Type="Int32" />
           <Property Name="turncode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="assisted" Type="Boolean" />
           <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
         </EntityType>
         <EntityType Name="frequency">
@@ -207,7 +210,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="hour" Type="Time" Precision="7" />
-          <Property Name="available" Type="Int32" />
+          <Property Name="available" Type="Boolean" />
           <Property Name="id_place" Type="Int32" />
           <Property Name="id_bus" Type="Int32" />
           <NavigationProperty Name="bus" Relationship="Self.FK_frequency_bus" FromRole="frequency" ToRole="bus" />
@@ -230,6 +233,7 @@
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="hour" Type="Time" Precision="7" />
+          <Property Name="last" Type="Boolean" />
           <Property Name="id_place" Type="Int32" />
           <Property Name="id_bus" Type="Int32" />
           <Property Name="id_client" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
@@ -374,6 +378,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_turn" ColumnName="id_turn" />
                 <ScalarProperty Name="turncode" ColumnName="turncode" />
+                <ScalarProperty Name="assisted" ColumnName="assisted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -404,6 +409,7 @@
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="hour" ColumnName="hour" />
+                <ScalarProperty Name="last" ColumnName="last" />
                 <ScalarProperty Name="id_place" ColumnName="id_place" />
                 <ScalarProperty Name="id_bus" ColumnName="id_bus" />
                 <ScalarProperty Name="id_client" ColumnName="id_client" />
