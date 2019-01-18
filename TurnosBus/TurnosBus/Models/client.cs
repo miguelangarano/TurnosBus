@@ -24,6 +24,7 @@ namespace TurnosBus.Models
         public string name { get; set; }
         public string mail { get; set; }
         public string password { get; set; }
+        public Nullable<System.DateTime> banned { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<turn> turns { get; set; }

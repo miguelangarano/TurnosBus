@@ -30,8 +30,8 @@ namespace TurnosBus.Models
     
         public virtual bus bus { get; set; }
         public virtual client client { get; set; }
-        public virtual place place { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<code> codes { get; set; }
+        public virtual place place { get; set; }
     }
 }
