@@ -24,8 +24,9 @@
       <EntityTypeMapping TypeName="TurnosBusModel.frequency">
         <MappingFragment StoreEntitySet="frequency">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="day" ColumnName="day" />
+          <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="hour" ColumnName="hour" />
+          <ScalarProperty Name="fixed" ColumnName="fixed" />
           <ScalarProperty Name="available" ColumnName="available" />
           <ScalarProperty Name="id_place" ColumnName="id_place" />
           <ScalarProperty Name="id_bus" ColumnName="id_bus" />
@@ -50,14 +51,6 @@
           <ScalarProperty Name="id_place" ColumnName="id_place" />
           <ScalarProperty Name="id_bus" ColumnName="id_bus" />
           <ScalarProperty Name="id_client" ColumnName="id_client" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="codes">
-      <EntityTypeMapping TypeName="TurnosBusModel.code">
-        <MappingFragment StoreEntitySet="code">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_code" ColumnName="id_code" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -27,7 +27,6 @@ namespace TurnosBus.Models
     
         public virtual DbSet<bus> buses { get; set; }
         public virtual DbSet<client> clients { get; set; }
-        public virtual DbSet<code> codes { get; set; }
         public virtual DbSet<frequency> frequencies { get; set; }
         public virtual DbSet<place> places { get; set; }
         public virtual DbSet<turn> turns { get; set; }

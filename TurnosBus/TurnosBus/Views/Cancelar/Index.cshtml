@@ -2,44 +2,10 @@
 @{
     ViewBag.Title = "Cancelar";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
     div#options h3#option4 {
         opacity: 1;
     }
-
-    #datetimecontainer{
-        display: flex;
-        justify-content: space-around;
-    }
-
-    #tablecontainer{
-        padding-left: 10vw;
-        padding-right: 10vw;
-        padding-top: 10vh;
-    }
-
-
-    td, th {
-        text-align: left;
-        padding: 8px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #7BC17A;
-    }
-
-    .cancelarbutton {
-        width: 10vw;
-        height: 5vh;
-        right: 5vw;
-        top: 7vh;
-        background: #0C430B;
-        border-radius: 30px;
-        font-size: 1em;
-        color: #FFFFFF;
-    }
-
 </style>
 <div id="appbar">
     <img src="~/Content/img/espe.png" alt="" id="image">
@@ -47,7 +13,7 @@
 </div>
 <div id="container">
     <div id="title">
-        <h1 id="texttitle">Cancelar Turno</h1>
+        <h1 id="texttitle">Horarios y Unidades</h1>
     </div>
     <div id="options">
         <h3 id="option1">Horarios y Unidades</h3>
@@ -56,102 +22,12 @@
         <h3 id="option4">Cancelar Turno</h3>
     </div>
     <div id="content">
-        <div id="datetimecontainer">
+        <div id="datetime">
             <h3 id="datetext">Fecha: XX/XX/XXXX</h3>
             <h3 id="hourtext">Hora: XX:XX</h3>
         </div>
         <div id="tablecontainer">
-            <table id="table-cancelar" style="width:100%">
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Lugar</th>
-                </tr>
-            </table>
+
         </div>
     </div>
 </div>
-
-<script>
-    const url = "/Cancelar/GetTurn";
-    const id_cliente = "4";
-    var dat="";
-
-    getDateAndTime();
-
-    function getDateAndTime() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-
-        let hours = today.getHours();
-        let minutes = today.getMinutes();
-        let time = hours + ":" + minutes;
-        var today = mm + '/' + dd + '/' + yyyy;
-
-        $("#datetext").html("Fecha: " + today);
-        if (minutes < 10) {
-            $("#hourtext").html("Hora: " + hours + ":0" + minutes);
-        } else {
-            $("#hourtext").html("Hora: " + time);
-        }
-    }
-
-
-    $.post(url, { id_cliente: id_cliente }, function (data) {
-        dat = data;
-        let table = document.getElementById("table-cancelar");
-        let row = table.insertRow(1);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
-
-        cell1.innerHTML = data.date.split(" ", 1);
-        cell2.innerHTML = data.hour;
-        cell3.innerHTML = data.place;
-        cell4.innerHTML = '<button class="cancelarbutton" id="'+data.id+'" onclick="onClickCancelar(id)">Cancelar</button>';
-
-        console.log(data);
-    });
-
-    function onClickCancelar(e) {
-        getDateAndTime();
-        //$("#datetext").html("Fecha: 04/01/2019");
-        //$("#hourtext").html("Hora: 04:00");
-        console.log(e);
-        let d1 = new Date(dat.date.split(" ", 1));
-        let d2 = new Date($("#datetext").text().split(" ", 2)[1]);
-        if (d1.getTime() === d2.getTime()) {
-            console.log("Fechas iguales");
-            if (dat.hour < $("#hourtext").text().split(" ", 2)[1]) {
-                //console.log(dat.hour+"    "+$("#hourtext").text().split(" ", 2)[1])
-                let diff = $("#hourtext").text().split(":", 3)[2] - dat.hour.split(":", 2)[1];
-                if (diff <= 15) {
-                    $.post("/Cancelar/CancelarTurno", { id_turno: e }, function (data) {
-                        if (data) {
-                            alert("Su turno ha sido cancelado. Recuerde que solo puede cancelar 15 minutos antes de la hora indicada en el turno.");
-                        } else {
-                            alert("Error: No se pudo cancelar el turno. Por favor, inténtelo de nuevo.");
-                        }
-                    });                
-                } else {
-                    alert("Error: Solo se puede cancelar 15 minutos antes de la hora de salida. Recuerde que si no utiliza su turno, su cuenta será inhabilitada por tres días.");
-                }
-            } else {
-                //console.log(dat.hour + "    " + $("#hourtext").text().split(" ", 2)[1])
-                alert("Error: La hora del turno es mucho menor a la hora actual.");
-            }
-        } else {
-            alert("Error: La fecha del turno no es la misma que la fecha actual.");
-        }
-    }
-</script>
