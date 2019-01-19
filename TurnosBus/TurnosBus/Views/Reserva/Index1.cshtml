@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Reserva";
+}
+<style>
+    div#options h3#option2 {
+        opacity: 1;
+    }
+</style>
+@* =============================CABEZERA=================================================== *@
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Reserva un Turno</h1>
+    </div>
+    @* =============================NAVEGACION=================================================== *@
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Verificar Disponibilidad</h3>
+        <h3 id="option4">Cancelar Turno</h3>
+    </div>
+    @* =============================CONTENIDO=================================================== *@
+
+
+    <div id="content">
+        @* =============================FECHA Y HORA=================================================== *@
+        <center>
+            <div class="">
+                <div class="widget">
+                    <div class="fecha">
+                        <p id="diaSemana" class="diaSemana">Martes</p>
+                        <p id="dia" class="dia">27</p>
+                        <p>de </p>
+                        <p id="mes" class="mes">Octubre</p>
+                        <p>del </p>
+                        <p id="year" class="year">2015</p>
+                    </div>
+
+                    <div class="reloj">
+                        <p id="horas" class="horas">11</p>
+                        <p>:</p>
+                        <p id="minutos" class="minutos">48</p>
+                        <p>:</p>
+                        <div class="caja-segundos">
+                            <p id="ampm" class="ampm">AM</p>
+                            <p id="segundos" class="segundos">12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+        <div class="col-lg-5">
+            <select id="user_time_zone" class="form-control" size="0">
+                <option value="">HORARIO</option>
+                <option value="HORARIO1">HORARIO 1</option>
+                <option value="HORARIO2">HORARIO 2</option>
+                <option value="HORARIO3">HORARIO 3</option>
+                <option value="HORARIO4">HORARIO 4</option>
+            </select>
+        </div>
+        <div class="col-lg-5">
+            <select id="user_time_zone" class="form-control" size="0">
+                <option value="">LUGAR DE SALIDA</option>
+                <option value="SALIDA1">SALIDA 1</option>
+                <option value="SALIDA2">SALIDA 2</option>
+                <option value="SALIDA3">SALIDA 3</option>
+                <option value="SALIDA4">SALIDA 4</option>
+
+            </select>
+        </div>
+
+        <br />
+        <br />
+        <table id="table-horario">
+            <tr>
+                <th>Placa</th>
+                <th>Capacidad</th>
+                <th></th>
+            </tr>
+            <div>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>40</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>50</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>60</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>ABDC01234</td>
+                    <td>70</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+        </table>
+
+        <br />
+        <br />
+        <button type="submit" class="btn btn-success btn-lg float-right" id="btnDescargarCodigo">DESCARGAR CODIGO</button>
+
+        <!--/container-->
+    </div>
+</div>
+@* ===============================JAVASCRIP DEL RELOG=========================================== *@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    
+</script>

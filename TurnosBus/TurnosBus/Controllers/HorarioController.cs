@@ -14,7 +14,5 @@ namespace TurnosBus.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        public JsonResult getHorarioTable()
-        {
+    }
+}

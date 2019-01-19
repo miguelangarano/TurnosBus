@@ -9,7 +9,7 @@ namespace TurnosBus.Controllers
     public class ReservaController : Controller
     {
         // GET: Reserva
-        public ActionResult Index()
+        public ActionResult Index1()
         {
             return View();
         }
