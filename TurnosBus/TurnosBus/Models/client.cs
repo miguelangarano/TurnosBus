@@ -11,7 +11,10 @@ namespace TurnosBus.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +22,23 @@ namespace TurnosBus.Models
         {
             this.turns = new HashSet<turn>();
         }
-    
+
+        [Required]
+        [DisplayName("id")]
         public string id { get; set; }
+        [Required][DisplayName ("nombre")]
         public string name { get; set; }
+        [Required][DisplayName("mail")]
         public string mail { get; set; }
+        [Required]     
+        [DisplayName("contraseña")]
         public string password { get; set; }
-    
+        [Required]
+        [NotMapped]
+        [DisplayName("confirmar contraseña")]
+     
+        public string rpassword { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<turn> turns { get; set; }
     }

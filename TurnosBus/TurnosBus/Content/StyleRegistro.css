@@ -9,10 +9,9 @@ body {
 
 .loginbox {
     width: 320px;
-    height: 500px;
     background: #DCDCDC;
     color: #fff;
-    top: 60%;
+    top: 70%;
     left: 50%;
     border: 1px solid gray;
     border-radius: 20px;
@@ -20,6 +19,7 @@ body {
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 30px 30px;
+    
 }
 
 .avatar {
@@ -60,7 +60,7 @@ p {
         background: transparent;
         outline: none;
         height: 40px;
-        color: #fff;
+        color: black;
         font-size: 16px;
     }
 
