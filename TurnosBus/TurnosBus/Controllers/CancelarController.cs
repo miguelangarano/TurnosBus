@@ -36,7 +36,7 @@ namespace TurnosBus.Controllers
 
         public bool CancelarTurno(String id_turno)
         {
-            
+            db.codes.Remove(db.codes.Find(id_turno));
             return true;
         }
     }
