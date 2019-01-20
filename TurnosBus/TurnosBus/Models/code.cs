@@ -15,7 +15,9 @@ namespace TurnosBus.Models
     public partial class code
     {
         public int id { get; set; }
-        public Nullable<int> id_code { get; set; }
+        public Nullable<int> id_turn { get; set; }
+        public string turncode { get; set; }
+        public Nullable<bool> assisted { get; set; }
     
         public virtual turn turn { get; set; }
     }
