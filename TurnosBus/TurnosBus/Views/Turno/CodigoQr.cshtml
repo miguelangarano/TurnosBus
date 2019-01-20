@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "CodigoQr";
+}
+<style>
+    div#options h3#option2 {
+        opacity: 1;
+    }
+
+    #datetimecontainer {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+@* =============================CABEZERA=================================================== *@
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Reserva un Turno</h1>
+    </div>
+    @* =============================NAVEGACION=================================================== *@
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Verificar Disponibilidad</h3>
+        <h3 id="option4">Cancelar Turno</h3>
+    </div>
+    @* =============================CONTENIDO=================================================== *@
+
+
+    <div id="content">
+        <center>
+            <h2>CodigoQr</h2>
+
+            @if (ViewBag.QRCodeImage != null)
+            {
+                <img src="@ViewBag.QRCodeImage" alt="" style="height:150px;width:150px" />
+            }
+        </center>
+           
+    </div>
+</div>

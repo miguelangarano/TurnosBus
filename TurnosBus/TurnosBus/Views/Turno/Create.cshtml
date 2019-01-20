@@ -3,9 +3,15 @@
 @{
     ViewBag.Title = "Generar Turno";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
     div#options h3#option2 {
         opacity: 1;
+    }
+
+    #datetimecontainer {
+        display: flex;
+        justify-content: space-around;
     }
 </style>
 @* =============================CABEZERA=================================================== *@
@@ -29,96 +35,108 @@
 
     <div id="content">
         @* =============================FECHA Y HORA=================================================== *@
-        
-            <div class="">
-                <div class="widget">
-                    <div class="fecha">
-                        <p id="diaSemana" class="diaSemana">Martes</p>
-                        <p id="dia" class="dia">27</p>
-                        <p>de </p>
-                        <p id="mes" class="mes">Octubre</p>
-                        <p>del </p>
-                        <p id="year" class="year">2015</p>
-                    </div>
-
-                    <div class="reloj">
-                        <p id="horas" class="horas">11</p>
-                        <p>:</p>
-                        <p id="minutos" class="minutos">48</p>
-                        <p>:</p>
-                        <div class="caja-segundos">
-                            <p id="ampm" class="ampm">AM</p>
-                            <p id="segundos" class="segundos">12</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-
+        <div id="datetimecontainer">
+            <h3 id="datetext"></h3>
+            <h3 id="hourtext">Hora: XX:XX</h3>
+        </div>
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.hour, "Hora de Salida", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.hour, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.hour, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.id_place, "Lugar de Salida", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("id_place", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.id_place, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.id_bus, "id_bus", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("id_bus", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.id_bus, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.id_client, "id_client", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("id_client", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.id_client, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_place, "LUGAR", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("id_place", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_place, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_bus, "id_bus", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("id_bus", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_bus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_client, "id_client", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("id_client", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.id_client, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <table id="table-horario">
+                <tr>
+                    <th>Placa</th>
+                    <th>Capacidad</th>
+                    <th>Disponibilidad</th>
+                </tr>
+                <tr>
+                    <td>Peter</td>
+                    <td>Griffin</td>
+                    <td>$100</td>
+                </tr>
+
+            </table>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+
+        </div>
         }
     </div>
-    </div>
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
+</div>
+
+<script>
+    getDateAndTime();
+
+    function getDateAndTime() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
         }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        let hours = today.getHours();
+        let minutes = today.getMinutes();
+        let time = hours + ":" + minutes;
+        var today = mm + '/' + dd + '/' + yyyy;
+
+        $("#datetext").html("Fecha: " + today);
+  
+        $('#datetext').val(today);
+        if (minutes < 10) {
+            $("#hourtext").html("Hora: " + hours + ":0" + minutes);
+        } else {
+            $("#hourtext").html("Hora: " + time);
+        }
+    }
+    $(function () {
+        $('#fileId').change(function () {
+            // When the user selects a file, read the selected filename
+            // and set it to the textbox
+            var filename = $(this).val();
+            $('#fileName').val(filename);
+        });
+    });
+</script>

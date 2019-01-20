@@ -17,6 +17,17 @@
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="mail" ColumnName="mail" />
           <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="banned" ColumnName="banned" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="codes">
+      <EntityTypeMapping TypeName="TurnosBusModel.code">
+        <MappingFragment StoreEntitySet="code">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_turn" ColumnName="id_turn" />
+          <ScalarProperty Name="turncode" ColumnName="turncode" />
+          <ScalarProperty Name="assisted" ColumnName="assisted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -47,17 +58,10 @@
           <ScalarProperty Name="code" ColumnName="code" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="hour" ColumnName="hour" />
+          <ScalarProperty Name="last" ColumnName="last" />
           <ScalarProperty Name="id_place" ColumnName="id_place" />
           <ScalarProperty Name="id_bus" ColumnName="id_bus" />
           <ScalarProperty Name="id_client" ColumnName="id_client" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="codes">
-      <EntityTypeMapping TypeName="TurnosBusModel.code">
-        <MappingFragment StoreEntitySet="code">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_code" ColumnName="id_code" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

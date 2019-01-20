@@ -28,5 +28,10 @@ namespace TurnosBus.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<turn> turns { get; set; }
+
+        public static implicit operator client(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

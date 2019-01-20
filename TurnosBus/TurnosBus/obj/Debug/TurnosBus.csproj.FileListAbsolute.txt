@@ -166,7 +166,6 @@ C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\T
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\vbc.rsp
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe.config
-D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csprojAssemblyReference.cache
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CoreCompileInputs.cache
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.dll
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.pdb
@@ -257,3 +256,6 @@ D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\es\System.W
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\es\System.Web.WebPages.Deployment.resources.dll
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\es\System.Web.WebPages.Razor.resources.dll
 D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CopyComplete
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\QRCoder.dll
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\bin\System.Drawing.Common.dll
+D:\Jipson Murillo\Documents\GitHub\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csprojAssemblyReference.cache
