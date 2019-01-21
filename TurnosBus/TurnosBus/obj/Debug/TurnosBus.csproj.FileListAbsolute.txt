@@ -27,7 +27,6 @@ C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\T
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csprojAssemblyReference.cache
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CoreCompileInputs.cache
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csproj.CopyComplete
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.dll
@@ -166,3 +165,4 @@ C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\T
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\vbc.rsp
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csprojAssemblyReference.cache
