@@ -184,6 +184,8 @@
     <Content Include="Content\cancelar-style.css" />
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
+    <Content Include="Content\img\log.png" />
+    <Content Include="Content\login-style.css" />
     <Content Include="Content\plantilla-style.css" />
     <Content Include="Content\StyleRegistro.css" />
     <Content Include="favicon.ico" />
@@ -241,6 +243,7 @@
     <Content Include="Views\Horario\Index.cshtml" />
     <Content Include="Views\Cancelar\Index.cshtml" />
     <Content Include="Views\clients\Create.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -64,7 +64,7 @@ namespace TurnosBus.Controllers
         public string SaveClients(string id, string name, string mail, string password)
         { 
 
-            client client = new client() { id = id, name = name, mail = mail, password = password };
+            client client = new client() { id = id, name = name, mail = mail, password = password, banned=new DateTime(2000, 1, 1) };
             try
             {
                 db.clients.Add(client);
