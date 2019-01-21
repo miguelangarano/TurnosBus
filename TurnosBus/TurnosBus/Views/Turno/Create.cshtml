@@ -1,0 +1,159 @@
+﻿@model TurnosBus.Models.turn
+
+@{
+    ViewBag.Title = "Generar Turno";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+    div#options h3#option2 {
+        opacity: 1;
+    }
+
+    #datetimecontainer {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+@* =============================CABEZERA=================================================== *@
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Reserva un Turno</h1>
+    </div>
+    @* =============================NAVEGACION=================================================== *@
+    <div id="options">
+        <h3 id="option1">Horarios y Unidades</h3>
+        <h3 id="option2">Reserva un Turno</h3>
+        <h3 id="option3">Cancelar Turno</h3>
+    </div>
+    @* =============================CONTENIDO=================================================== *@
+
+
+    <div id="content">
+        @* =============================FECHA Y HORA=================================================== *@
+        <div id="datetimecontainer">
+            <h3 id="datetext">FECHA</h3>
+            <h3 id="hourtext">Hora</h3>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-6">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id_place, "LUGAR", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("id_place", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.id_place, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id_bus, "BUS", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("id_bus", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.id_bus, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id_client, "NOMBRE", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("id_client", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.id_client, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <table id="table-horario">
+                                <tr>
+                                    <th>Placa</th>
+                                    <th>Capacidad</th>
+                                    <th>Disponibilidad</th>
+                                </tr>
+                                <tr>
+                                    <td>Peter</td>
+                                    <td>Griffin</td>
+                                    <td>$100</td>
+                                </tr>
+
+                            </table>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="RESERVAR" class="btn btn-success" />
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+            getDateAndTime();
+
+            function getDateAndTime() {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+
+                var yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd;
+                }
+                if (mm < 10) {
+                    mm = '0' + mm;
+                }
+
+                let hours = today.getHours();
+                let minutes = today.getMinutes();
+                let time = hours + ":" + minutes;
+                var today = mm + '/' + dd + '/' + yyyy;
+
+                $("#datetext").html("Fecha: " + today);
+
+                $('#datetext').val(today);
+                if (minutes < 10) {
+                    $("#hourtext").html("Hora: " + hours + ":0" + minutes);
+                } else {
+                    $("#hourtext").html("Hora: " + time);
+                }
+            }
+            $(function () {
+                $('#fileId').change(function () {
+                    // When the user selects a file, read the selected filename
+                    // and set it to the textbox
+                    var filename = $(this).val();
+                    $('#fileName').val(filename);
+                });
+            });
+</script>

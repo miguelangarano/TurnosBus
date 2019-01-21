@@ -52,6 +52,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="QRCoder, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -138,6 +142,7 @@
     <Compile Include="Controllers\clientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\TurnoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +249,8 @@
     <Content Include="Views\Cancelar\Index.cshtml" />
     <Content Include="Views\clients\Create.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Turno\Create.cshtml" />
+    <Content Include="Views\Turno\CodigoQr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
