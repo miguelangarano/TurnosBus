@@ -2,9 +2,10 @@
 @{
     ViewBag.Title = "Horario";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
-    div#options h3#option1{
-        opacity:1;
+    div#options h3#option1 {
+        opacity: 1;
     }
 </style>
 <div id="appbar">
@@ -19,37 +20,36 @@
     <div id="options">
         <h3 id="option1">Horarios y Unidades</h3>
         <h3 id="option2">Reserva un Turno</h3>
-        <h3 id="option3">Verificar Disponibilidad</h3>
-        <h3 id="option4">Cancelar Turno</h3>
+        <h3 id="option3">Cancelar Turno</h3>
     </div>
 
     <div id="content">
         <table id="table-horario">
             <tr>
-                <th>Placa</th>
+                <th>Dia</th>
+                <th>Hora</th>
                 <th>Capacidad</th>
-                <th>Disponibilidad esta semana</th>
-            </tr>
-            <tr>
-                <td>Peter</td>
-                <td>Griffin</td>
-                <td>$100</td>
-            </tr>
-            <tr>
-                <td>Lois</td>
-                <td>Griffin</td>
-                <td>$150</td>
-            </tr>
-            <tr>
-                <td>Joe</td>
-                <td>Swanson</td>
-                <td>$300</td>
-            </tr>
-            <tr>
-                <td>Cleveland</td>
-                <td>Brown</td>
-                <td>$250</td>
+                <th>Lugar</th>
             </tr>
         </table>
     </div>
 </div>
+
+<script>
+    $.post("/Horario/getHorarioTable", {}, function (data) {
+        //console.log(window.location.hostname + url);
+        let table = document.getElementById("table-horario");
+        data.forEach(function (d, i) {
+            let row = table.insertRow(i + 1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            cell1.innerHTML = d.day;
+            cell2.innerHTML = d.hour;
+            cell3.innerHTML = d.capacity;
+            cell4.innerHTML = d.place;
+        });
+        console.log(data);
+    });
+</script>
