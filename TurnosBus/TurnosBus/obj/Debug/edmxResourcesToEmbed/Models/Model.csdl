@@ -18,7 +18,18 @@
     <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="mail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="banned" Type="DateTime" Precision="0" />
     <NavigationProperty Name="turns" Relationship="Self.FK_turn_client" FromRole="client" ToRole="turn" />
+  </EntityType>
+  <EntityType Name="code">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_turn" Type="Int32" />
+    <Property Name="turncode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="assisted" Type="Boolean" />
+    <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
   </EntityType>
   <EntityType Name="frequency">
     <Key>
@@ -27,7 +38,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="hour" Type="Time" Precision="7" />
-    <Property Name="available" Type="Int32" />
+    <Property Name="available" Type="Boolean" />
     <Property Name="id_place" Type="Int32" />
     <Property Name="id_bus" Type="Int32" />
     <NavigationProperty Name="bus" Relationship="Self.FK_frequency_bus" FromRole="frequency" ToRole="bus" />
@@ -50,21 +61,14 @@
     <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date" Type="DateTime" Precision="0" />
     <Property Name="hour" Type="Time" Precision="7" />
+    <Property Name="last" Type="Boolean" />
     <Property Name="id_place" Type="Int32" />
     <Property Name="id_bus" Type="Int32" />
     <Property Name="id_client" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="bus" Relationship="Self.FK_turn_bus" FromRole="turn" ToRole="bus" />
     <NavigationProperty Name="client" Relationship="Self.FK_turn_client" FromRole="turn" ToRole="client" />
-    <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
     <NavigationProperty Name="codes" Relationship="Self.FK_code_turn" FromRole="turn" ToRole="code" />
-  </EntityType>
-  <EntityType Name="code">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_code" Type="Int32" />
-    <NavigationProperty Name="turn" Relationship="Self.FK_code_turn" FromRole="code" ToRole="turn" />
+    <NavigationProperty Name="place" Relationship="Self.FK_turn_place" FromRole="turn" ToRole="place" />
   </EntityType>
   <Association Name="FK_frequency_bus">
     <End Role="bus" Type="Self.bus" Multiplicity="0..1" />
@@ -102,6 +106,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_code_turn">
+    <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
+    <End Role="code" Type="Self.code" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="turn">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="code">
+        <PropertyRef Name="id_turn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_frequency_place">
     <End Role="place" Type="Self.place" Multiplicity="0..1" />
     <End Role="frequency" Type="Self.frequency" Multiplicity="*" />
@@ -126,25 +142,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_code_turn">
-    <End Role="turn" Type="Self.turn" Multiplicity="0..1" />
-    <End Role="code" Type="Self.code" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="turn">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="code">
-        <PropertyRef Name="id_code" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="TurnosBusEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="buses" EntityType="Self.bus" />
     <EntitySet Name="clients" EntityType="Self.client" />
+    <EntitySet Name="codes" EntityType="Self.code" />
     <EntitySet Name="frequencies" EntityType="Self.frequency" />
     <EntitySet Name="places" EntityType="Self.place" />
     <EntitySet Name="turns" EntityType="Self.turn" />
-    <EntitySet Name="codes" EntityType="Self.code" />
     <AssociationSet Name="FK_frequency_bus" Association="Self.FK_frequency_bus">
       <End Role="bus" EntitySet="buses" />
       <End Role="frequency" EntitySet="frequencies" />
@@ -157,6 +161,10 @@
       <End Role="client" EntitySet="clients" />
       <End Role="turn" EntitySet="turns" />
     </AssociationSet>
+    <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
+      <End Role="turn" EntitySet="turns" />
+      <End Role="code" EntitySet="codes" />
+    </AssociationSet>
     <AssociationSet Name="FK_frequency_place" Association="Self.FK_frequency_place">
       <End Role="place" EntitySet="places" />
       <End Role="frequency" EntitySet="frequencies" />
@@ -164,10 +172,6 @@
     <AssociationSet Name="FK_turn_place" Association="Self.FK_turn_place">
       <End Role="place" EntitySet="places" />
       <End Role="turn" EntitySet="turns" />
-    </AssociationSet>
-    <AssociationSet Name="FK_code_turn" Association="Self.FK_code_turn">
-      <End Role="turn" EntitySet="turns" />
-      <End Role="code" EntitySet="codes" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

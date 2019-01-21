@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b6709544236545cebaa30db1faf2837b" Name="Diagram1">
+      <Diagram DiagramId="7b5b60ae6dfc452ab996fc17a332f52a" Name="Diagram1">
         <EntityTypeShape EntityType="TurnosBusModel.bus" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="TurnosBusModel.client" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TurnosBusModel.code" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
