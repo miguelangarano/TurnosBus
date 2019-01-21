@@ -11,7 +11,8 @@ namespace TurnosBus.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class bus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,11 @@ namespace TurnosBus.Models
         }
     
         public int id { get; set; }
+        [Required]
+        [RegularExpression(@"^([A-Z]{3})[-]([0-9]{4})$", ErrorMessage = "La placa debe tener 3 letras mayusculas y 4 digitos. Ejem:XBX-0458 ")]
         public string plate { get; set; }
+        [Required]
+        [RegularExpression("^\\d+$", ErrorMessage = "El capacidad debe contener sólo números.")]
         public Nullable<int> capacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

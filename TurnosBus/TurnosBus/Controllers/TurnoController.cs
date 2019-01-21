@@ -26,31 +26,29 @@ namespace TurnosBus.Controllers
             return View();
         }
         // POST: Turno/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,date,hour,id_place,id_bus,id_client")] turn turn)
         {
-          string  CodigoQR2 = turn.id_client + DateTime.Now.ToString("yyyy-MM-dd");
             if (ModelState.IsValid)
             {
                 turn.date= DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd"));
                 turn.hour = TimeSpan.Parse(DateTime.Now.ToString("hh:mm"));
-                db.turns.Add(turn);
-                db.SaveChanges();
-                return RedirectToAction("CodigoQr","Turno");
+                //db.turns.Add(turn);
+                //db.SaveChanges();
+                return RedirectToAction("CodigoQr", "Turno",turn);
             }
-
             ViewBag.id_bus = new SelectList(db.buses, "id", "plate", turn.id_bus);
             ViewBag.id_client = new SelectList(db.clients, "id", "name", turn.id_client);
             ViewBag.id_place = new SelectList(db.places, "id", "name", turn.id_place);
             return View(turn);
         }
 
-        public ActionResult CodigoQr()
+        public ActionResult CodigoQr(turn turn)
         {
-            string codigoQr = "CODIGO QR RESULTANTE";
+            string codigoQr = turn.client+turn.date.ToString();
+            turn.code= turn.client + turn.date.ToString();
             using (MemoryStream ms = new MemoryStream())
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -61,7 +59,29 @@ namespace TurnosBus.Controllers
                     ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                 }
             }
-            return View();
+            if (ModelState.IsValid)
+            {
+                //db.turns.Add(turn);
+                //db.SaveChanges();
+            }
+            return View(turn);
+        }
+
+        //// GET: Turno/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            turn turn = db.turns.Find(id);
+            if (turn == null)
+            {
+                return HttpNotFound();
+            }
+            return View(turn);
         }
     }
+
+
 }
