@@ -58,6 +58,20 @@ namespace TurnosBus.Controllers
             return View(client);
         }
 
+        public int SaveClients(string id, string name, string mail, string password)
+        {
+            try
+            {
+                client client = new client() {id=id, name=name, mail=mail, password=password, banned=new DateTime(2000, 1, 1) };
+                db.clients.Add(client);
+                db.SaveChanges();
+                return 1;
+            }catch(Exception e)
+            {
+                return 0;
+            }
+        }
+
         // GET: clients/Edit/5
     }   
 }

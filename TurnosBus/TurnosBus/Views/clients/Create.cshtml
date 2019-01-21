@@ -4,6 +4,7 @@
     ViewBag.Title = "Registro";
 }
 <link href="~/Content/StyleRegistro.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div class="loginbox">
     <h1>Registro</h1>
@@ -56,7 +57,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-8">
-                    <input type="submit" value="Regístrate" />
+                    <input type="button" onclick="onClickSubmit()" value="Regístrate" />
                     <a>¿Ya Tienes cuenta? ¡Ingresa!</a>
                 </div>
 
@@ -66,3 +67,21 @@
 </div>
 
 
+<script>
+    function onClickSubmit() {
+        let password = $("#password").val();
+        let rpassword = $("#rpassword").val();
+        if (password === rpassword) {
+            $.post("/clients/SaveClients", { id: $("#id").val(), name: $("#name").val(), mail: $("#mail").val(), password: $("#password").val() }, function (data) {
+                if (data === 1) {
+                    alert("Registro exitoso.");
+                    window.location.assign('http://www.google.com');
+                } else {
+                    alert("Hubo un error en el registro. Por favor, inténtelo de nuevo.")
+                }
+            });
+        } else {
+            alert("Las contraseñas no coinciden.");
+        }
+    }
+</script>
