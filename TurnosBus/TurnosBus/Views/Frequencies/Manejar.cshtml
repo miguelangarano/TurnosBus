@@ -17,6 +17,10 @@
         font-size: 1em;
         color: #FFFFFF;
     }
+    #tablecontainer {
+        overflow-y: scroll;
+        height: 60vh;
+    } 
 </style>
 
 
@@ -38,13 +42,13 @@
     <div id="content">
         <div id="tablecontainer">
             <table id="table-disponibilidad">
-                <tr>
+                <thead>
                     <th>Placa</th>
                     <th>Lugar</th>
                     <th>Fecha</th>
                     <th>Horario</th>
                     <th>Disponibilidad</th>
-                </tr>
+                </thead>
                
             </table>
         </div>
@@ -79,13 +83,22 @@
         console.log(data);
     });
     function onClickCancelar(id_frecuencia) {
-        $.post("/Frequencies/cancelarFrecuencia", { id_frecuen: id_frecuencia }, function (data) {
+        var r = confirm("¿Esta seguro que desea cancelar?");
+        if (r == true) {
+            $.post("/Frequencies/cancelarFrecuencia", { id_frecuen: id_frecuencia }, function (data) {
 
-        });
+                location.reload();
+            });
+        }
+       
     };
     function onClickActivar(id_frecuencia) {
-        $.post("/Frequencies/activarFrecuencia", { id_turno: e }, function (data) {
-
-        });
+        var r = confirm("¿Esta seguro que desea activar?");
+        if (r == true) {
+            $.post("/Frequencies/activarFrecuencia", { id_frecuen: id_frecuencia }, function (data) {
+                location.reload();
+            });
+        }
+       
     }
 </script>

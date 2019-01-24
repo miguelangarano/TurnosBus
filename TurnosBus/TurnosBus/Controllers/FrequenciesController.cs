@@ -41,14 +41,20 @@ namespace TurnosBus.Controllers
 
         }
 
-        public JsonResult cancelarFrecuencia(int id_frecuen)
+        public void  cancelarFrecuencia(int id_frecuen)
         {
-            return Json("");
+            frequency fr = db.frequencies.Find(id_frecuen);
+            fr.available = false;
+            db.Entry(fr).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
-        public JsonResult activarFrecuencia(int id_frecuen)
+        public void activarFrecuencia(int id_frecuen)
         {
-            return Json("");
+            frequency fr = db.frequencies.Find(id_frecuen);
+            fr.available = true;
+            db.Entry(fr).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
 
