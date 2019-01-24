@@ -36,7 +36,6 @@ namespace TurnosBus.Controllers
 
         public bool CancelarTurno(String id_turno)
         {
-            
             return true;
         }
     }
