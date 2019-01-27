@@ -20,9 +20,6 @@ namespace TurnosBus.Controllers
         // GET: Turno/Create
         public ActionResult Create()
         {
-            ViewBag.id_bus = new SelectList(db.buses, "id", "plate");
-            ViewBag.id_client = new SelectList(db.clients, "id", "name");
-            ViewBag.id_place = new SelectList(db.places, "id", "name");
             return View();
         }
         // POST: Turno/Create
@@ -67,21 +64,32 @@ namespace TurnosBus.Controllers
             return View(turn);
         }
 
-        //// GET: Turno/Details/5
-        public ActionResult Details(int? id)
+        public JsonResult getFrecsTable()
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var frecuencias = db.frequencies.Where(x=>x.id==1).ToList<frequency>();
+                List<FrequenTurn> lista = new List<FrequenTurn>();
+                foreach (frequency l in frecuencias)
+                {
+                    FrequenTurn dummy = new FrequenTurn() { id = l.id, hour = DateTime.Now.TimeOfDay.ToString(), place_nombre = l.place.name, capacity = (int)l.bus.capacity };
+                    lista.Add(dummy);
+                }
+                return Json(lista);
             }
-            turn turn = db.turns.Find(id);
-            if (turn == null)
+            catch (Exception error)
             {
-                return HttpNotFound();
+                return Json(error);
             }
-            return View(turn);
+
         }
     }
+}
 
-
+class FrequenTurn
+{
+    public int id { get; set; }
+    public string hour { get; set; }
+    public string place_nombre { get; set; }
+    public int capacity { get; set; }
 }

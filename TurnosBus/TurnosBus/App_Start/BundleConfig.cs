@@ -22,6 +22,7 @@ namespace TurnosBus
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/plantilla-script.js",
+                      "~/Content/plantilla-admin-script.js",
                       "~/Scripts/horario-script.js"
                       ));
 

@@ -19,12 +19,10 @@ namespace TurnosBus.Controllers
 
         public JsonResult GetTurn(String id_cliente)
         {
-            //return Json((date));
-            var turn = db.turns.Where(t=>t.id_client.Equals(id_cliente)).ToList<turn>();
+            var turn = db.turns.Where(t=>t.id_client.Equals(id_cliente) && t.last == true && t.date==DateTime.Today).ToList<turn>();
             if (turn.Count>0)
             {
                 CancelClass cancelClass = new CancelClass() { id = turn[turn.Count - 1].id, date = turn[turn.Count - 1].date.ToString(), hour = turn[turn.Count - 1].hour.ToString(), place= turn[turn.Count - 1].place.name };
-                //turno = turn[turn.Count - 1];
                 return Json(cancelClass);
             }
             else
@@ -34,10 +32,21 @@ namespace TurnosBus.Controllers
             
         }
 
-        public bool CancelarTurno(String id_turno)
+        public JsonResult CancelarTurno(int id_turno)
         {
-            
-            return true;
+            try
+            {
+                code code = db.codes.Where(x => x.id_turn == id_turno).ToList<code>()[0];
+                db.codes.Remove(code);
+                db.SaveChanges();
+                turn turn = db.turns.Where(x => x.id == id_turno).ToList<turn>()[0];
+                turn.last = false;
+                db.SaveChanges();
+                return Json(true);
+            }catch(Exception e)
+            {
+                return Json(false+"  "+e);
+            }
         }
     }
 

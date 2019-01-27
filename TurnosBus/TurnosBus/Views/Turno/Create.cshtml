@@ -13,6 +13,26 @@
         display: flex;
         justify-content: space-around;
     }
+
+    table#table-frec {
+        border-collapse: collapse;
+        width: 98%;
+    }
+
+    table#table-frec th, td {
+        text-align: left;
+        padding: 8px;
+        text-align: center;
+    }
+
+    table#table-frec tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+    table#table-frec th {
+        background-color: #4CAF50;
+        color: white;
+    }
 </style>
 @* =============================CABEZERA=================================================== *@
 <div id="appbar">
@@ -39,121 +59,107 @@
             <h3 id="hourtext">Hora</h3>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                </div>
-                <div class="col-sm-6">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-horizontal">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.id_place, "LUGAR", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("id_place", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.id_place, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.id_bus, "BUS", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("id_bus", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.id_bus, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.id_client, "NOMBRE", htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownList("id_client", null, htmlAttributes: new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.id_client, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <table id="table-horario">
-                                <tr>
-                                    <th>Placa</th>
-                                    <th>Capacidad</th>
-                                    <th>Disponibilidad</th>
-                                </tr>
-                                <tr>
-                                    <td>Peter</td>
-                                    <td>Griffin</td>
-                                    <td>$100</td>
-                                </tr>
-
-                            </table>
-                            <br />
-                            <br />
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="RESERVAR" class="btn btn-success" />
-                                </div>
-                            </div>
-
-                        </div>
-                    }
-                </div>
-            </div>
+            <table id="table-frec">
+                <tr>
+                    <th>Hora</th>
+                    <th>Lugar</th>
+                    <th>Capacidad</th>
+                    <th></th>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
 
 
+<script>
+    function onClickSalir() {
+        console.log("Salir");
+        window.location.assign('/Home/Login');
+    }
 
+    document.getElementById("option1").addEventListener("click", function () {
+        console.log("Horarios y Unidades");
+        window.location.assign('/Horario/Index');
+    });
 
+    document.getElementById("option2").addEventListener("click", function () {
+        console.log("Reservar un Turno");
+        window.location.assign('/Turno/Create');
+    });
 
-
-
-
-
-
-
-
-
-
-
-
+    document.getElementById("option3").addEventListener("click", function () {
+        console.log("Cancelar Turno");
+        window.location.assign('/Cancelar/Index');
+    });
+</script>
 
 
 <script>
-            getDateAndTime();
+    getDateAndTime();
 
-            function getDateAndTime() {
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth() + 1; //January is 0!
+    function getDateAndTime() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
 
-                var yyyy = today.getFullYear();
-                if (dd < 10) {
-                    dd = '0' + dd;
-                }
-                if (mm < 10) {
-                    mm = '0' + mm;
-                }
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
 
-                let hours = today.getHours();
-                let minutes = today.getMinutes();
-                let time = hours + ":" + minutes;
-                var today = mm + '/' + dd + '/' + yyyy;
+        let hours = today.getHours();
+        let minutes = today.getMinutes();
+        let time = hours + ":" + minutes;
+        var today = mm + '/' + dd + '/' + yyyy;
 
-                $("#datetext").html("Fecha: " + today);
+        $("#datetext").html("Fecha: " + today);
 
-                $('#datetext').val(today);
-                if (minutes < 10) {
-                    $("#hourtext").html("Hora: " + hours + ":0" + minutes);
-                } else {
-                    $("#hourtext").html("Hora: " + time);
-                }
+        $('#datetext').val(today);
+        if (minutes < 10) {
+            $("#hourtext").html("Hora: " + hours + ":0" + minutes);
+        } else {
+            $("#hourtext").html("Hora: " + time);
+        }
+    }
+    $(function () {
+        $('#fileId').change(function () {
+            // When the user selects a file, read the selected filename
+            // and set it to the textbox
+            var filename = $(this).val();
+            $('#fileName').val(filename);
+        });
+    });
+</script>
+
+<script>
+    let url = "/Turno/getFrecsTable";
+
+    getFrecs();
+
+    function getFrecs() {
+        $.post(url, {}, function (data) {
+            console.log(data);
+            /*dat = data;
+            let table = document.getElementById("table-frec");
+            for (let i = 1; i < table.rows.length; i++) {
+                table.deleteRow(i);
             }
-            $(function () {
-                $('#fileId').change(function () {
-                    // When the user selects a file, read the selected filename
-                    // and set it to the textbox
-                    var filename = $(this).val();
-                    $('#fileName').val(filename);
-                });
-            });
+            if (data.date !== undefined) {
+                let row = table.insertRow(1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+
+                cell1.innerHTML = data.date.split(" ", 1);
+                cell2.innerHTML = data.hour;
+                cell3.innerHTML = data.place;
+                cell4.innerHTML = '<button class="cancelarbutton" id="' + data.id + '" onclick="onClickCancelar(id)">Cancelar</button>';
+            }*/
+        });
+    }
 </script>

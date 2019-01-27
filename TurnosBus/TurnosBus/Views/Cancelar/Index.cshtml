@@ -3,15 +3,13 @@
     ViewBag.Title = "Cancelar";
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style>
     div#options h3#option3 {
         opacity: 1;
     }
 </style>
 <style>
-    div#options h3#option4 {
-        opacity: 1;
-    }
 
     #datetimecontainer{
         display: flex;
@@ -77,6 +75,28 @@
 </div>
 
 <script>
+    function onClickSalir() {
+        console.log("Salir");
+        window.location.assign('/Home/Login');
+    }
+
+    document.getElementById("option1").addEventListener("click", function () {
+        console.log("Horarios y Unidades");
+        window.location.assign('/Horario/Index');
+    });
+
+    document.getElementById("option2").addEventListener("click", function () {
+        console.log("Reservar un Turno");
+        window.location.assign('/Turno/Create');
+    });
+
+    document.getElementById("option3").addEventListener("click", function () {
+        console.log("Cancelar Turno");
+        window.location.assign('/Cancelar/Index');
+    });
+</script>
+
+<script>
     const url = "/Cancelar/GetTurn";
     const id_cliente = "4";
     var dat="";
@@ -109,49 +129,50 @@
         }
     }
 
+    getTurns();
 
-    $.post(url, { id_cliente: id_cliente }, function (data) {
-        dat = data;
-        let table = document.getElementById("table-cancelar");
-        let row = table.insertRow(1);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
+    function getTurns() {
+        $.post(url, { id_cliente: id_cliente }, function (data) {
+            dat = data;
+            let table = document.getElementById("table-cancelar");
+            for (let i = 1; i < table.rows.length; i++) {
+                table.deleteRow(i);
+            }
+            if (data.date !== undefined) {
+                let row = table.insertRow(1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
 
-        cell1.innerHTML = data.date.split(" ", 1);
-        cell2.innerHTML = data.hour;
-        cell3.innerHTML = data.place;
-        cell4.innerHTML = '<button class="cancelarbutton" id="'+data.id+'" onclick="onClickCancelar(id)">Cancelar</button>';
-
-        console.log(data);
-    });
+                cell1.innerHTML = data.date.split(" ", 1);
+                cell2.innerHTML = data.hour;
+                cell3.innerHTML = data.place;
+                cell4.innerHTML = '<button class="cancelarbutton" id="' + data.id + '" onclick="onClickCancelar(id)">Cancelar</button>';
+            }
+        });
+    }
 
     function onClickCancelar(e) {
         getDateAndTime();
-        //$("#datetext").html("Fecha: 04/01/2019");
-        //$("#hourtext").html("Hora: 04:00");
-        console.log(e);
         let d1 = new Date(dat.date.split(" ", 1));
         let d2 = new Date($("#datetext").text().split(" ", 2)[1]);
         if (d1.getTime() === d2.getTime()) {
-            console.log("Fechas iguales");
             if (dat.hour < $("#hourtext").text().split(" ", 2)[1]) {
-                //console.log(dat.hour+"    "+$("#hourtext").text().split(" ", 2)[1])
-                let diff = $("#hourtext").text().split(":", 3)[2] - dat.hour.split(":", 2)[1];
-                if (diff <= 15) {
+                let diff = dat.hour.split(":", 2)[1] - $("#hourtext").text().split(":", 3)[2];
+                if (Math.abs(diff) >= 15) {
                     $.post("/Cancelar/CancelarTurno", { id_turno: e }, function (data) {
-                        if (data) {
+                        if (data===true) {
                             alert("Su turno ha sido cancelado. Recuerde que solo puede cancelar 15 minutos antes de la hora indicada en el turno.");
+                            getTurns();
                         } else {
                             alert("Error: No se pudo cancelar el turno. Por favor, inténtelo de nuevo.");
                         }
                     });                
                 } else {
-                    alert("Error: Solo se puede cancelar 15 minutos antes de la hora de salida. Recuerde que si no utiliza su turno, su cuenta será inhabilitada por tres días.");
+                    alert("Error: Solo se puede cancelar 15 minutos antes de la hora de salida. Recuerde que si no utiliza su turno, su cuenta será inhabilitada por tres días. Dif:"+diff);
                 }
             } else {
-                //console.log(dat.hour + "    " + $("#hourtext").text().split(" ", 2)[1])
                 alert("Error: La hora del turno es mucho menor a la hora actual.");
             }
         } else {

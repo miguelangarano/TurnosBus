@@ -1,0 +1,135 @@
+﻿@model IEnumerable<TurnosBus.Models.frequency>
+
+@{
+    ViewBag.Title = "Manejar Disponibilidad";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="~/Content/disponibilidad-style.css" rel="stylesheet" />
+<style>
+    div#options h3#option4 {
+        opacity: 1;
+    }
+</style>
+<style>
+    .cancelarbutton {
+        width: 10vw;
+        height: 5vh;
+        right: 5vw;
+        top: 7vh;
+        background: #0C430B;
+        border-radius: 30px;
+        font-size: 1em;
+        color: #FFFFFF;
+    }
+
+    #tablecontainer {
+        overflow-y: scroll;
+        height: 60vh;
+    }
+</style>
+
+
+<div id="appbar">
+    <img src="~/Content/img/espe.png" alt="" id="image">
+    <button id="salirbutton" onclick="onClickSalir()">Salir</button>
+</div>
+<div id="container">
+    <div id="title">
+        <h1 id="texttitle">Manejar Disponibilidad</h1>
+    </div>
+    <div id="options">
+        <h3 id="option4">Manejar Frecuencias</h3>
+        <h3 id="option5">Registrar Bus</h3>
+        <h3 id="option6">Registrar Lugar</h3>
+        <h3 id="option7">Reportes</h3>
+    </div>
+    <div id="content">
+        <div id="tablecontainer">
+            <table id="table-disponibilidad">
+                <thead>
+                <th>Placa</th>
+                <th>Lugar</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Disponibilidad</th>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onClickSalir() {
+        console.log("Salir");
+        window.location.assign('/Home/Login');
+    }
+
+    document.getElementById("option4").addEventListener("click", function () {
+        console.log("Manejar Frecuencias");
+        window.location.assign('/Frequencies/Manejar');
+    });
+
+    document.getElementById("option5").addEventListener("click", function () {
+        console.log("Registrar Bus");
+        window.location.assign('/Bus/Create');
+    });
+
+    document.getElementById("option6").addEventListener("click", function () {
+        console.log("Registrar Lugar");
+        window.location.assign('/places/Create');
+    });
+
+    document.getElementById("option7").addEventListener("click", function () {
+        console.log("Reportes");
+        window.location.assign('/Reportes/Index');
+    });
+</script>
+
+<script>
+    $.post("/Frequencies/getFrequenciesTable", {}, function (data) {
+        //console.log(window.location.hostname + url);
+        let table = document.getElementById("table-disponibilidad");
+        data.forEach(function (d, i) {
+            let row = table.insertRow(i + 1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            let cell5 = row.insertCell(4);
+
+            cell1.innerHTML = d.bus_placa;
+            cell2.innerHTML = d.place_nombre;
+            cell3.innerHTML = d.day;
+            cell4.innerHTML = d.hour;
+            if (d.available == true) {
+                cell5.innerHTML = '<button class="cancelarbutton" id="' + d.id + '" onclick="onClickCancelar(id)">Cancelar</button>';
+            }
+            else if (d.available == false) {
+                cell5.innerHTML = '<button class="cancelarbutton" id="' + d.id + '" onclick="onClickActivar(id)">Activar</button>';
+            }
+
+
+        });
+        console.log(data);
+    });
+    function onClickCancelar(id_frecuencia) {
+        var r = confirm("¿Esta seguro que desea cancelar?");
+        if (r == true) {
+            $.post("/Frequencies/cancelarFrecuencia", { id_frecuen: id_frecuencia }, function (data) {
+
+                location.reload();
+            });
+        }
+
+    };
+    function onClickActivar(id_frecuencia) {
+        var r = confirm("¿Esta seguro que desea activar?");
+        if (r == true) {
+            $.post("/Frequencies/activarFrecuencia", { id_frecuen: id_frecuencia }, function (data) {
+                location.reload();
+            });
+        }
+
+    }
+</script>

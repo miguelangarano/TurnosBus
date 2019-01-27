@@ -1,19 +1,19 @@
-table#table-horario {
+﻿table#table-disponibilidad {
     border-collapse: collapse;
     width: 98%;
 }
 
-    table#table-horario th, td {
+    table#table-disponibilidad th, td {
         text-align: left;
         padding: 8px;
         text-align: center;
     }
 
-    table#table-horario tr:nth-child(even) {
+    table#table-disponibilidad tr:nth-child(even) {
         background-color: #f2f2f2
     }
 
-    table#table-horario th {
+    table#table-disponibilidad th {
         background-color: #4CAF50;
         color: white;
     }

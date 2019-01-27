@@ -138,10 +138,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BusController.cs" />
     <Compile Include="Controllers\CancelarController.cs" />
     <Compile Include="Controllers\clientsController.cs" />
+    <Compile Include="Controllers\FrequenciesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HorarioController.cs" />
+    <Compile Include="Controllers\placesController.cs" />
     <Compile Include="Controllers\TurnoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,6 +190,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cancelar-style.css" />
+    <Content Include="Content\disponibilidad-style.css" />
     <Content Include="Content\horario-style.css" />
     <Content Include="Content\img\espe.png" />
     <Content Include="Content\img\log.png" />
@@ -230,7 +234,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\plantilla-script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -251,6 +254,9 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Turno\Create.cshtml" />
     <Content Include="Views\Turno\CodigoQr.cshtml" />
+    <Content Include="Views\Bus\Create.cshtml" />
+    <Content Include="Views\places\Create.cshtml" />
+    <Content Include="Views\Frequencies\Manejar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
