@@ -42,13 +42,16 @@
             let mail = $("#mail").val();
             let password = $("#password").val();
             $.post("/Home/LoginGet", { mail: mail, password: password }, function (data) {
-                
-                console.log(data);
                 if (data !== "0") {
                     let date = new Date(data.banned.split(" ", 1));
                     let today = new Date();
                     if (today >= date) {
-                        window.location.assign('/Horario/Index');
+                        sessionStorage.setItem("id_client", data.id);
+                        if (data.id === 'admin') {
+                            window.location.assign('/Frequencies/Manejar');
+                        } else {
+                            window.location.assign('/Horario/Index');
+                        }
                     } else {
                         alert("Error. Usted tiene un restricción de ingreso al sistema debido a un baneo de su cuenta. Banned Until: " + date);
                     }

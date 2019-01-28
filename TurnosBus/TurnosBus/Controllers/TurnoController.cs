@@ -11,6 +11,7 @@ using QRCoder;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text;
 
 namespace TurnosBus.Controllers
 {
@@ -42,37 +43,20 @@ namespace TurnosBus.Controllers
             return View(turn);
         }
 
-        public ActionResult CodigoQr(turn turn)
+        public ActionResult CodigoQr()
         {
-            string codigoQr = turn.client + turn.date.ToString();
-            turn.code = turn.client + turn.date.ToString();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                QRCodeGenerator.QRCode qrCode = qrGenerator.CreateQrCode(codigoQr, QRCodeGenerator.ECCLevel.Q);
-                using (Bitmap bitMap = qrCode.GetGraphic(20))
-                {
-                    bitMap.Save(ms, ImageFormat.Png);
-                    ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                }
-            }
-            if (ModelState.IsValid)
-            {
-                //db.turns.Add(turn);
-                //db.SaveChanges();
-            }
-            return View(turn);
+            return View("CodigoQr");
         }
 
         public JsonResult getFrecsTable()
         {
             try
             {
-                var frecuencias = db.frequencies.Where(x=>x.id==1).ToList<frequency>();
+                var frecuencias = db.frequencies.ToList<frequency>();
                 List<FrequenTurn> lista = new List<FrequenTurn>();
                 foreach (frequency l in frecuencias)
                 {
-                    FrequenTurn dummy = new FrequenTurn() { id = l.id, hour = DateTime.Now.TimeOfDay.ToString(), place_nombre = l.place.name, capacity = (int)l.bus.capacity };
+                    FrequenTurn dummy = new FrequenTurn() { id = l.id, day = l.day, hour = l.hour.ToString(), place = l.place.name, capacity = (int)l.bus.capacity };
                     lista.Add(dummy);
                 }
                 return Json(lista);
@@ -81,7 +65,64 @@ namespace TurnosBus.Controllers
             {
                 return Json(error);
             }
+        }
 
+        public JsonResult saveTurn(int id_frecuency, string id_client)
+        {
+            try
+            {
+                var frecuencias = db.frequencies.Where(x=>x.id==id_frecuency).ToList<frequency>();
+
+                if (checkTurn(id_client, (TimeSpan)frecuencias[0].hour))
+                {
+                    turn turn = new turn() { code = GetRandomAlphaNumeric(50), date = DateTime.Today, hour = frecuencias[0].hour, last = true, id_place = frecuencias[0].id_place, id_bus = frecuencias[0].id_bus, id_client = id_client };
+
+                    db.turns.Add(turn);
+                    db.SaveChanges();
+
+                    code code = new code() { id_turn = turn.id, turncode = turn.code, assisted = false };
+                    db.codes.Add(code);
+                    db.SaveChanges();
+                    QrTurn qr = new QrTurn() { code = turn.code, saved = true };
+                    return Json(qr);
+                }
+                else
+                {
+                    QrTurn qr = new QrTurn() { code = "", saved = false };
+                    return Json(false);
+                }
+            }
+            catch(Exception e)
+            {
+                return Json(false+""+e);
+            }
+        }
+
+        public string GetRandomAlphaNumeric(int length)
+        {
+            char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+            StringBuilder result = new StringBuilder();
+            Random rn = new Random();
+            for(int i = 0; i < length; i++)
+            {
+                result.Append(chars[rn.Next(chars.Length)]);
+            }
+            return result.ToString();
+        }
+
+        public bool checkTurn(string id_client, TimeSpan time)
+        {
+       
+            var turns = db.turns.Where(x => x.date == DateTime.Today && x.id_client == id_client && x.hour == time).ToList<turn>();
+            if (turns.Count==0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }
@@ -89,7 +130,14 @@ namespace TurnosBus.Controllers
 class FrequenTurn
 {
     public int id { get; set; }
+    public string day { get; set; }
     public string hour { get; set; }
-    public string place_nombre { get; set; }
+    public string place { get; set; }
     public int capacity { get; set; }
+}
+
+class QrTurn
+{
+    public string code { get; set; }
+    public bool saved { get; set; }
 }

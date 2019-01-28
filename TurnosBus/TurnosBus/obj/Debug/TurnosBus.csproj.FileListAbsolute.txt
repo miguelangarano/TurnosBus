@@ -165,4 +165,3 @@ C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\T
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\vbc.rsp
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe
 C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Miguel\Projects\ESPE\CertificacionI\TercerParcial\TurnosBus\TurnosBus\TurnosBus\obj\Debug\TurnosBus.csprojAssemblyReference.cache

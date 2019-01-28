@@ -4,7 +4,11 @@
     ViewBag.Title = "Registrar Lugar";
 }
 
-
+<script>
+    if (sessionStorage.getItem("id_client") === null || sessionStorage.getItem("id_client") === undefined || sessionStorage.getItem("id_client") !== "admin") {
+        window.location.assign('/Shared/Error');
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -109,6 +113,7 @@
 <script>
     function onClickSalir() {
         console.log("Salir");
+        sessionStorage.setItem("id_client", "");
         window.location.assign('/Home/Login');
     }
 

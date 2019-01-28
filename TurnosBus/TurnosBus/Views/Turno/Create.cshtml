@@ -3,7 +3,13 @@
 @{
     ViewBag.Title = "Generar Turno";
 }
+<script>
+    if (sessionStorage.getItem("id_client") === null || sessionStorage.getItem("id_client") === undefined || sessionStorage.getItem("id_client") === "") {
+        window.location.assign('/Shared/Error');
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@Scripts.Render("~/bundles/jquery")
 <style>
     div#options h3#option2 {
         opacity: 1;
@@ -19,19 +25,36 @@
         width: 98%;
     }
 
-    table#table-frec th, td {
-        text-align: left;
-        padding: 8px;
-        text-align: center;
+        table#table-frec th, td {
+            text-align: left;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table#table-frec tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        table#table-frec th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    .cancelarbutton {
+        width: 10vw;
+        height: 5vh;
+        right: 5vw;
+        top: 7vh;
+        background: #0C430B;
+        border-radius: 30px;
+        font-size: 1em;
+        color: #FFFFFF;
     }
 
-    table#table-frec tr:nth-child(even) {
-        background-color: #f2f2f2
-    }
-
-    table#table-frec th {
-        background-color: #4CAF50;
-        color: white;
+    #qrcode {
+        width: 160px;
+        height: 160px;
+        margin-top: 15px;
     }
 </style>
 @* =============================CABEZERA=================================================== *@
@@ -68,6 +91,7 @@
                 </tr>
             </table>
         </div>
+        <div id="qrcode"></div>
     </div>
 </div>
 
@@ -75,6 +99,7 @@
 <script>
     function onClickSalir() {
         console.log("Salir");
+        sessionStorage.setItem("id_client", "");
         window.location.assign('/Home/Login');
     }
 
@@ -138,28 +163,81 @@
 <script>
     let url = "/Turno/getFrecsTable";
 
+
+    var qrcode = new QRCode("qrcode");
+
+    function makeCode(text) {
+        qrcode.makeCode(text);
+    }
+
+
+
+
+    function onClickReservar(e) {
+        $.post("/Turno/saveTurn", { id_frecuency: e, id_client: 4 }, function (data) {
+            if (data.saved === true) {
+                console.log(data);
+                makeCode(data.code);
+                alert("Turno reservado con éxito. \nRecuerde que debe estar en el lugar de recogida, 5 minutos antes de la hora establecida. \nRecuerde que existen sanciones para el estudiante que no haga uso del turno reservado.");
+            } else if (data.saved === false) {
+                alert("Ya tiene un turno reservado para la frecuencia seleccionada.")
+            } else {
+                alert("No se pudo reservar su turno. Por favor intente de nuevo.");
+            }
+        });
+    }
+
     getFrecs();
+
+    function htos(e) {
+        let hr = e.split(":", 2)[0] * 3600;
+        let min = e.split(":", 2)[1] * 60;
+        let secs = hr + min;
+        return secs;
+    }
 
     function getFrecs() {
         $.post(url, {}, function (data) {
             console.log(data);
-            /*dat = data;
+            let days = [
+                "domingo",
+                "lunes",
+                "martes",
+                "miercoles",
+                "jueves",
+                "viernes",
+                "sabado"
+            ]
+
             let table = document.getElementById("table-frec");
             for (let i = 1; i < table.rows.length; i++) {
                 table.deleteRow(i);
             }
-            if (data.date !== undefined) {
-                let row = table.insertRow(1);
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                let cell4 = row.insertCell(3);
 
-                cell1.innerHTML = data.date.split(" ", 1);
-                cell2.innerHTML = data.hour;
-                cell3.innerHTML = data.place;
-                cell4.innerHTML = '<button class="cancelarbutton" id="' + data.id + '" onclick="onClickCancelar(id)">Cancelar</button>';
-            }*/
+            data.forEach((d) => {
+                if (d.day === days[new Date().getDay()]) {
+                    let hours = new Date().getHours();
+                    let minutes = new Date().getMinutes();
+                    let hr = hours + ":" + minutes;
+
+                    let date1 = new Date(new Date().toDateString() + ' ' + d.hour);
+                    let date2 = new Date();
+
+
+                    if (Math.abs(date1 - date2) <= 1800000 && d.hour.split(":", 2)[0] >= hours) {
+                        let row = table.insertRow(1);
+                        let cell1 = row.insertCell(0);
+                        let cell2 = row.insertCell(1);
+                        let cell3 = row.insertCell(2);
+                        let cell4 = row.insertCell(3);
+
+                        cell1.innerHTML = d.hour;
+                        cell2.innerHTML = d.place;
+                        cell3.innerHTML = d.capacity;
+                        cell4.innerHTML = '<button class="cancelarbutton" id="' + d.id + '" onclick="onClickReservar(id)">Reservar</button>';
+                    }
+                }
+            });
         });
     }
 </script>
